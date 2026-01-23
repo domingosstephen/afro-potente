@@ -82,39 +82,41 @@ export function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Full Screen Solid Background */}
+            {/* Dark Backdrop - Blurs and darkens the site content */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-[#050f05] z-[90] lg:hidden"
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-black/80 backdrop-blur-md z-[110] lg:hidden"
             />
             
+            {/* Menu Panel - Slides from the top and stays ON TOP of everything */}
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed inset-0 z-[100] lg:hidden bg-[#050f05] pt-32 px-6 pb-10 flex flex-col overflow-y-auto"
+              className="fixed top-0 left-0 right-0 z-[120] lg:hidden bg-[#0a1a0a] border-b border-[#22c55e]/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pt-24 px-6 pb-12 flex flex-col rounded-b-[3rem]"
             >
-              <div className="flex flex-col gap-4">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#22c55e] mb-4 ml-2">Navegação</p>
+              <div className="flex flex-col gap-3">
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#22c55e] mb-2 ml-2">Navegação</p>
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
                   >
                     <Link 
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-5 p-6 rounded-[2rem] bg-white/5 border border-white/5 hover:border-[#22c55e]/30 hover:bg-[#22c55e]/5 transition-all group"
+                      className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 active:bg-[#22c55e]/10 transition-all"
                     >
-                      <div className="p-4 bg-white/5 rounded-2xl text-white/30 group-hover:text-[#22c55e] transition-colors">
+                      <div className="p-3 bg-white/5 rounded-xl text-[#22c55e]">
                         {link.icon}
                       </div>
-                      <span className="font-black uppercase tracking-widest text-sm text-white/70 group-hover:text-white">
+                      <span className="font-black uppercase tracking-widest text-xs text-white/90">
                         {link.name}
                       </span>
                     </Link>
@@ -122,20 +124,22 @@ export function Navbar() {
                 ))}
               </div>
 
-              <div className="mt-12 space-y-4">
-                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 rounded-2xl text-sm uppercase tracking-widest">
+              <div className="mt-8 space-y-3">
+                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 rounded-xl text-xs uppercase tracking-widest">
                   Fazer Avaliação
                 </Button>
-                <Button variant="outline" className="w-full border-white/10 hover:bg-white/5 text-white font-black h-16 rounded-2xl text-sm uppercase tracking-widest">
+                <Button variant="outline" className="w-full border-white/10 text-white font-black h-14 rounded-xl text-xs uppercase tracking-widest">
                   Área do Paciente
                 </Button>
-                
+              </div>
+
+              {/* Close Handle - Visual cue that it can be closed */}
+              <div className="flex justify-center mt-8">
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="w-full py-6 text-white/30 font-bold uppercase tracking-[0.2em] text-[10px] hover:text-white transition-colors"
-                >
-                  Fechar Menu
-                </button>
+                  className="h-1.5 w-12 bg-white/10 rounded-full"
+                  aria-label="Fechar Menu"
+                />
               </div>
             </motion.div>
           </>
