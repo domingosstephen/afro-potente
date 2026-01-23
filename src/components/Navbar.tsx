@@ -63,14 +63,14 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="flex lg:hidden items-center gap-3 z-50">
+          <div className="flex lg:hidden items-center gap-3 z-[110]">
             <div className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
               <User className="h-4 w-4 text-white/30" />
             </div>
             <button 
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-white/70 hover:text-[#22c55e] transition-colors"
-              aria-label="Toggle Menu"
+              className="p-2 text-white hover:text-[#22c55e] transition-colors bg-white/5 rounded-lg border border-white/10"
+              aria-label={isOpen ? "Fechar Menu" : "Abrir Menu"}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -82,39 +82,39 @@ export function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop to prevent clicking content behind */}
+            {/* Full Screen Solid Background */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
               className="fixed inset-0 bg-[#050f05] z-[90] lg:hidden"
             />
             
             <motion.div
-              initial={{ opacity: 0, x: "100%" }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-[100] w-full lg:hidden bg-[#050f05] pt-24 px-6 pb-10 flex flex-col overflow-y-auto"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="fixed inset-0 z-[100] lg:hidden bg-[#050f05] pt-32 px-6 pb-10 flex flex-col overflow-y-auto"
             >
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#22c55e] mb-4 ml-2">Navegação</p>
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.name}
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
                   >
                     <Link 
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-[#22c55e]/30 hover:bg-[#22c55e]/5 transition-all group"
+                      className="flex items-center gap-5 p-6 rounded-[2rem] bg-white/5 border border-white/5 hover:border-[#22c55e]/30 hover:bg-[#22c55e]/5 transition-all group"
                     >
-                      <div className="p-3 bg-white/5 rounded-xl text-white/30 group-hover:text-[#22c55e] transition-colors">
+                      <div className="p-4 bg-white/5 rounded-2xl text-white/30 group-hover:text-[#22c55e] transition-colors">
                         {link.icon}
                       </div>
-                      <span className="font-black uppercase tracking-widest text-xs text-white/70 group-hover:text-white">
+                      <span className="font-black uppercase tracking-widest text-sm text-white/70 group-hover:text-white">
                         {link.name}
                       </span>
                     </Link>
@@ -122,13 +122,20 @@ export function Navbar() {
                 ))}
               </div>
 
-              <div className="mt-auto space-y-4">
-                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 rounded-xl text-xs uppercase tracking-widest">
+              <div className="mt-12 space-y-4">
+                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 rounded-2xl text-sm uppercase tracking-widest">
                   Fazer Avaliação
                 </Button>
-                <Button variant="outline" className="w-full border-white/10 hover:bg-white/5 text-white font-black h-14 rounded-xl text-xs uppercase tracking-widest">
+                <Button variant="outline" className="w-full border-white/10 hover:bg-white/5 text-white font-black h-16 rounded-2xl text-sm uppercase tracking-widest">
                   Área do Paciente
                 </Button>
+                
+                <button 
+                  onClick={() => setIsOpen(false)}
+                  className="w-full py-6 text-white/30 font-bold uppercase tracking-[0.2em] text-[10px] hover:text-white transition-colors"
+                >
+                  Fechar Menu
+                </button>
               </div>
             </motion.div>
           </>
