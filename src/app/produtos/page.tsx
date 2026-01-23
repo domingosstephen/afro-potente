@@ -71,40 +71,40 @@ export default function ProdutosPage() {
 
         {/* Master Combo / Bundle */}
         <div className="max-w-5xl mx-auto mb-24">
-          <div className="relative overflow-hidden bg-gradient-to-br from-[#0a1a0a] to-[#050f05] border-2 border-[#22c55e]/30 rounded-[2.5rem] p-8 md:p-12">
-            <div className="absolute top-0 right-0 p-6">
-              <Sparkles className="h-12 w-12 text-[#22c55e]/20" />
+          <div className="relative overflow-hidden bg-gradient-to-br from-[#0a1a0a] to-[#050f05] border-2 border-[#22c55e]/30 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-12">
+            <div className="absolute top-0 right-0 p-4 md:p-6 opacity-20 md:opacity-100">
+              <Sparkles className="h-8 w-8 md:h-12 md:w-12 text-[#22c55e]" />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="inline-block px-4 py-1 rounded-full bg-[#22c55e] text-[#050f05] text-[10px] font-black uppercase tracking-widest mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+              <div className="text-center lg:text-left">
+                <div className="inline-block px-4 py-1 rounded-full bg-[#22c55e] text-[#050f05] text-[9px] md:text-[10px] font-black uppercase tracking-widest mb-4 md:mb-6">
                   Oferta Única
                 </div>
-                <h2 className="text-4xl font-black mb-4 uppercase tracking-tighter">Coleção Vitalidade Suprema</h2>
-                <p className="text-[#22c55e] font-bold text-lg mb-6 italic">"Toda a ciência e todas as receitas por um preço único."</p>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center gap-3 text-white/70 font-medium">
-                    <CheckCircle2 className="h-5 w-5 text-[#22c55e]" />
+                <h2 className="text-3xl md:text-4xl font-black mb-4 uppercase tracking-tighter">Coleção Vitalidade Suprema</h2>
+                <p className="text-[#22c55e] font-bold text-base md:text-lg mb-6 md:mb-8 italic leading-snug">"Toda a ciência e todas as receitas por um preço único."</p>
+                <ul className="space-y-3 mb-8 text-left inline-block lg:block">
+                  <li className="flex items-center gap-3 text-white/70 font-medium text-sm md:text-base">
+                    <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-[#22c55e] shrink-0" />
                     Todos os 4 guias digitais inclusos
                   </li>
-                  <li className="flex items-center gap-3 text-white/70 font-medium">
-                    <CheckCircle2 className="h-5 w-5 text-[#22c55e]" />
+                  <li className="flex items-center gap-3 text-white/70 font-medium text-sm md:text-base">
+                    <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-[#22c55e] shrink-0" />
                     BÔNUS: Guia de Compras Afrodisíacas
                   </li>
-                  <li className="flex items-center gap-3 text-white/70 font-medium">
-                    <CheckCircle2 className="h-5 w-5 text-[#22c55e]" />
+                  <li className="flex items-center gap-3 text-white/70 font-medium text-sm md:text-base">
+                    <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-[#22c55e] shrink-0" />
                     Acesso imediato via PDF
                   </li>
                 </ul>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-3xl p-8 text-center">
-                <div className="text-white/40 line-through text-lg mb-1">R$ 438,00</div>
-                <div className="text-5xl font-black text-white mb-2">R$ 197,00</div>
-                <div className="text-[#22c55e] font-bold text-sm uppercase tracking-widest mb-8">Economize R$ 241,00</div>
-                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 rounded-xl text-lg transition-all hover:scale-105">
+              <div className="bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 text-center">
+                <div className="text-white/40 line-through text-base md:text-lg mb-1">R$ 438,00</div>
+                <div className="text-4xl md:text-5xl font-black text-white mb-2">R$ 197,00</div>
+                <div className="text-[#22c55e] font-bold text-[10px] md:text-sm uppercase tracking-widest mb-6 md:mb-8">Economize R$ 241,00</div>
+                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 md:h-16 rounded-xl text-sm md:text-lg transition-all hover:scale-105 uppercase tracking-widest px-4">
                   Quero a Coleção Completa
                 </Button>
-                <p className="text-[10px] text-white/30 mt-4 uppercase font-bold tracking-widest flex items-center justify-center gap-2">
+                <p className="text-[9px] md:text-[10px] text-white/30 mt-4 uppercase font-bold tracking-widest flex items-center justify-center gap-2">
                   <ShieldCheck className="h-3 w-3" /> Pagamento Seguro via Pix ou Cartão
                 </p>
               </div>
