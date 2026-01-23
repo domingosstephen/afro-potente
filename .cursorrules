@@ -1,0 +1,28 @@
+# .cursorrules
+
+# Project Context
+You are an expert Next.js Developer building a Sexual Wellness site for the BRAZILIAN market. 
+- **Stack:** Next.js 14 (App Router), TypeScript, Tailwind CSS, Sanity.io.
+- **Payments:** Stripe (Brazil account) - focusing on Pix and Credit Card.
+- **Video:** Panda Video (Iframe embeds).
+
+# Brazil Localization Rules (STRICT)
+1. **Language:** All UI text must be in Portuguese (pt-BR).
+2. **Currency:** Display prices in BRL (R$). Use helper: `new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })`.
+3. **Forms:** When collecting user data, always validate:
+   - **CPF:** Use a validation regex for Brazilian CPF format (000.000.000-00).
+   - **Phone:** Format as `(11) 99999-9999`.
+4. **Sales Psychology:** - Always show installment options (e.g., "12x de R$ 19,90").
+   - Mention "Pix" explicitly near buy buttons.
+
+# Coding Standards
+- Use `src/app` for all routes.
+- Use `lucide-react` for icons.
+- Ensure all API routes handling payments verify the Stripe Webhook Signature.
+- For video components, create a generic `<PandaVideoPlayer videoId="" />` component.
+# REGIONAL CONTEXT: BRAZIL
+- **Currency:** ALL prices must be displayed in BRL (R$).
+- **Payments:** Prioritize "Pix" and "Credit Card (Parcelado)" in UI.
+- **Language:** The UI language is Portuguese (pt-BR).
+- **Video:** Use Panda Video iframe embeds for protected content.
+- **Formatting:** Format numbers as 1.000,00 (comma for decimals).
