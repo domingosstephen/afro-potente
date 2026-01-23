@@ -22,7 +22,7 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-[#050f05] text-white font-sans overflow-x-hidden">
       <Navbar />
 
-      <main className="flex-1">
+      <main className="flex-1 pt-20 lg:pt-0">
         {/* Hero Section */}
         <section className="relative pt-10 pb-20 lg:pt-20 lg:pb-32 overflow-hidden">
           <div className="container mx-auto px-4 md:px-6">

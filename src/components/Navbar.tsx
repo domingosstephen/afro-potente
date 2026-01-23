@@ -63,13 +63,13 @@ export function Navbar() {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="flex lg:hidden items-center gap-3 z-[110]">
+          <div className="flex lg:hidden items-center gap-3 z-[130]">
             <div className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
               <User className="h-4 w-4 text-white/30" />
             </div>
             <button 
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-white hover:text-[#22c55e] transition-colors bg-white/5 rounded-lg border border-white/10"
+              className="p-2 text-white hover:text-[#22c55e] transition-colors bg-[#0a1a0a] rounded-lg border border-white/10 shadow-lg"
               aria-label={isOpen ? "Fechar Menu" : "Abrir Menu"}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
