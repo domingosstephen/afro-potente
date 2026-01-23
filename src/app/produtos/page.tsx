@@ -97,16 +97,21 @@ export default function ProdutosPage() {
                   </li>
                 </ul>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 text-center">
+              <div className="bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 text-center flex flex-col items-center">
                 <div className="text-white/40 line-through text-base md:text-lg mb-1">R$ 438,00</div>
                 <div className="text-4xl md:text-5xl font-black text-white mb-2">R$ 197,00</div>
                 <div className="text-[#22c55e] font-bold text-[10px] md:text-sm uppercase tracking-widest mb-6 md:mb-8">Economize R$ 241,00</div>
-                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 md:h-16 rounded-xl text-sm md:text-lg transition-all hover:scale-105 uppercase tracking-widest px-4">
+                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 md:h-16 rounded-xl text-xs md:text-lg transition-all hover:scale-105 uppercase tracking-widest px-2 leading-tight">
                   Quero a Coleção Completa
                 </Button>
-                <p className="text-[9px] md:text-[10px] text-white/30 mt-4 uppercase font-bold tracking-widest flex items-center justify-center gap-2">
-                  <ShieldCheck className="h-3 w-3" /> Pagamento Seguro via Pix ou Cartão
-                </p>
+                <div className="mt-6 flex flex-col items-center gap-2">
+                  <p className="text-[11px] md:text-xs text-white/50 uppercase font-black tracking-widest flex items-center justify-center gap-2">
+                    <ShieldCheck className="h-4 w-4 text-[#22c55e]" /> Pagamento Seguro
+                  </p>
+                  <p className="text-[10px] md:text-[11px] text-white/30 uppercase font-bold tracking-widest">
+                    Via Pix ou Cartão
+                  </p>
+                </div>
               </div>
             </div>
           </div>
