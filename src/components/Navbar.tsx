@@ -81,46 +81,57 @@ export function Navbar() {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 lg:hidden bg-[#050f05] pt-24 px-6 pb-10 flex flex-col"
-          >
-            <div className="flex flex-col gap-2">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  <Link 
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-[#22c55e]/30 hover:bg-[#22c55e]/5 transition-all group"
+          <>
+            {/* Backdrop to prevent clicking content behind */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-[#050f05]/60 backdrop-blur-sm z-30 lg:hidden"
+            />
+            
+            <motion.div
+              initial={{ opacity: 0, x: "100%" }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed inset-y-0 right-0 z-40 w-[85%] max-w-sm lg:hidden bg-[#050f05] border-l border-white/5 shadow-2xl pt-24 px-6 pb-10 flex flex-col"
+            >
+              <div className="flex flex-col gap-3">
+                {navLinks.map((link, i) => (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
                   >
-                    <div className="p-3 bg-white/5 rounded-xl text-white/30 group-hover:text-[#22c55e] transition-colors">
-                      {link.icon}
-                    </div>
-                    <span className="font-black uppercase tracking-widest text-sm text-white/70 group-hover:text-white">
-                      {link.name}
-                    </span>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
+                    <Link 
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-[#22c55e]/30 hover:bg-[#22c55e]/5 transition-all group"
+                    >
+                      <div className="p-3 bg-white/5 rounded-xl text-white/30 group-hover:text-[#22c55e] transition-colors">
+                        {link.icon}
+                      </div>
+                      <span className="font-black uppercase tracking-widest text-xs text-white/70 group-hover:text-white">
+                        {link.name}
+                      </span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
 
-            <div className="mt-auto space-y-4">
-              <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 rounded-xl text-sm uppercase tracking-widest">
-                Fazer Avaliação
-              </Button>
-              <Button variant="outline" className="w-full border-white/10 hover:bg-white/5 text-white font-black h-14 rounded-xl text-sm uppercase tracking-widest">
-                Entrar na Área do Paciente
-              </Button>
-            </div>
-          </motion.div>
+              <div className="mt-auto space-y-4">
+                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 rounded-xl text-xs uppercase tracking-widest">
+                  Fazer Avaliação
+                </Button>
+                <Button variant="outline" className="w-full border-white/10 hover:bg-white/5 text-white font-black h-14 rounded-xl text-xs uppercase tracking-widest">
+                  Área do Paciente
+                </Button>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
