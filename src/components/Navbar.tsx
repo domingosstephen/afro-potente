@@ -54,19 +54,19 @@ export function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="ghost" className="text-white/50 hover:text-white hover:bg-white/5 font-bold uppercase tracking-widest text-[10px]">
-              Entrar
+            <Button asChild variant="ghost" className="text-white/50 hover:text-white hover:bg-white/5 font-bold uppercase tracking-widest text-[10px]">
+              <Link href="/contato">Entrar</Link>
             </Button>
-            <div className="h-10 w-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer hover:bg-[#22c55e]/10 hover:border-[#22c55e]/30 transition-all group">
+            <Link href="/contato" className="h-10 w-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#22c55e]/10 hover:border-[#22c55e]/30 transition-all group">
               <User className="h-5 w-5 text-white/30 group-hover:text-[#22c55e]" />
-            </div>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
           <div className="flex lg:hidden items-center gap-3 z-[130]">
-            <div className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+            <Link href="/contato" className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
               <User className="h-4 w-4 text-white/30" />
-            </div>
+            </Link>
             <button 
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 text-white hover:text-[#22c55e] transition-colors bg-[#0a1a0a] rounded-lg border border-white/10 shadow-lg"
@@ -125,11 +125,11 @@ export function Navbar() {
               </div>
 
               <div className="mt-8 space-y-3">
-                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 rounded-xl text-xs uppercase tracking-widest">
-                  Fazer Avaliação
+                <Button asChild className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 rounded-xl text-xs uppercase tracking-widest">
+                  <Link href="/como-funciona" onClick={() => setIsOpen(false)}>Fazer Avaliação</Link>
                 </Button>
-                <Button variant="outline" className="w-full border-white/10 text-white font-black h-14 rounded-xl text-xs uppercase tracking-widest">
-                  Área do Paciente
+                <Button asChild variant="outline" className="w-full border-white/10 text-white font-black h-14 rounded-xl text-xs uppercase tracking-widest">
+                  <Link href="/contato" onClick={() => setIsOpen(false)}>Área do Paciente</Link>
                 </Button>
               </div>
 

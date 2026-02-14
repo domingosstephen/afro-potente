@@ -31,6 +31,8 @@ export default function ContatoPage() {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const objetivos = [
     "Energia & disposição",
@@ -61,17 +63,38 @@ export default function ContatoPage() {
     return newErrors;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setApiError(null);
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-    
-    // Simulate API call
-    console.log("Form data:", formData);
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/contato", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome: formData.nome.trim(),
+          email: formData.email.trim(),
+          objetivo: formData.objetivo || undefined,
+          preferencias: formData.preferencias,
+          consentimento: true,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setApiError(data.error ?? "Erro ao enviar. Tente novamente.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setApiError("Erro de conexão. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCheckboxChange = (id: string) => {
@@ -226,8 +249,11 @@ export default function ContatoPage() {
                   {errors.consentimento && <p className="text-red-400 text-xs font-bold">{errors.consentimento}</p>}
                 </div>
 
-                <Button type="submit" size="lg" className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 rounded-2xl text-lg transition-all hover:scale-[1.02]">
-                  Quero Receber Conteúdos
+                {apiError && (
+                  <p className="text-red-400 text-sm font-bold">{apiError}</p>
+                )}
+                <Button type="submit" size="lg" disabled={loading} className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 rounded-2xl text-lg transition-all hover:scale-[1.02]">
+                  {loading ? "Enviando..." : "Quero Receber Conteúdos"}
                 </Button>
 
                 <div className="pt-6 border-t border-white/5 space-y-4">

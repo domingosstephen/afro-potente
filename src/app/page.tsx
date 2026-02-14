@@ -267,12 +267,12 @@ export default function Home() {
                 Educação e suplementação natural com foco em vitalidade e bem-estar integral.
               </p>
               <div className="flex gap-4 justify-center md:justify-start">
-                <div className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#22c55e]/20 transition-colors cursor-pointer border border-white/5">
+                <a href="https://twitter.com/afropotente" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#22c55e]/20 transition-colors border border-white/5" aria-label="Twitter">
                   <Twitter className="h-5 w-5 text-white/60" />
-                </div>
-                <div className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#22c55e]/20 transition-colors cursor-pointer border border-white/5">
+                </a>
+                <a href="https://instagram.com/afropotente" target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#22c55e]/20 transition-colors border border-white/5" aria-label="Instagram">
                   <Instagram className="h-5 w-5 text-white/60" />
-                </div>
+                </a>
               </div>
             </div>
 
@@ -290,6 +290,7 @@ export default function Home() {
                   <li><Link href="/guia-de-bem-estar" className="hover:text-white transition-colors">Guia</Link></li>
                   <li><Link href="/contato" className="hover:text-white transition-colors">Contato</Link></li>
                   <li><Link href="/privacidade" className="hover:text-white transition-colors">Privacidade</Link></li>
+                  <li><Link href="/termos" className="hover:text-white transition-colors">Termos</Link></li>
                 </ul>
               </div>
             </div>

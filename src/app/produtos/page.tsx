@@ -2,43 +2,68 @@ import Link from "next/link";
 import { Zap, ArrowLeft, ShoppingBag, CheckCircle2, Star, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { createServerSupabase } from "@/lib/supabase-server";
+import { CheckoutButton } from "@/components/CheckoutButton";
 
-const products = [
-  {
-    id: "restauracao",
-    name: "Manual de Restauração Total",
-    description: "O Guia de Recuperação: Disfunções persistentes, falta de ereção matinal e limpeza arterial.",
-    price: "R$ 147,00",
-    tag: "Restauração",
-    features: ["Infusão de 72 horas (Cebola/Limão/Cravo)", "Limpeza arterial natural", "Recuperação de ereção matinal"]
-  },
-  {
-    id: "libido",
-    name: "Acelerador de Libido",
-    description: "O Guia do Desejo: Baixo desejo sexual, desequilíbrio hormonal e falta de sensibilidade.",
-    price: "R$ 97,00",
-    tag: "Desejo",
-    features: ["Drink de Quiabo e Cravo", "Misturas de Chocolate Amargo e Banana", "Equilíbrio hormonal natural"]
-  },
-  {
-    id: "performance",
-    name: "Protocolo de Performance",
-    description: "O Guia do Vigor: Ejaculação precoce, falta de energia durante o ato e cansaço físico.",
-    price: "R$ 127,00",
-    tag: "Vigor",
-    features: ["Chá da Potência Dourada (Gengibre/Alho/Mel)", "Shot de Melancia (Citrulina)", "Controle e estamina"]
-  },
-  {
-    id: "vigor",
-    name: "Guia do Vigor Diário",
-    description: "O Guia do Estilo de Vida: Insônia, níveis baixos de testosterona por estresse e fadiga diária.",
-    price: "R$ 67,00",
-    tag: "Estilo de Vida",
-    features: ["Tônico de Casca de Banana", "Protocolos de sono e sol", "Redução de cortisol"]
+export type ProductRow = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  price_display: string | null;
+  price_cents: number | null;
+  tag: string | null;
+  features: string[];
+  pdf_url: string | null;
+  payment_link: string | null;
+  stripe_price_id: string | null;
+  is_bundle: boolean;
+  sort_order: number;
+};
+
+export default async function ProdutosPage() {
+  let products: ProductRow[] = [];
+  let bundle: ProductRow | null = null;
+
+  try {
+    const supabase = createServerSupabase();
+    if (!supabase) {
+      products = [];
+      bundle = null;
+    } else {
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .order("sort_order", { ascending: true });
+
+    if (error) throw error;
+
+    const rows = (data ?? []) as ProductRow[];
+    bundle = rows.find((p) => p.is_bundle) ?? null;
+    products = rows.filter((p) => !p.is_bundle);
+
+    // Normalize features to array
+    products = products.map((p) => ({
+      ...p,
+      features: Array.isArray(p.features) ? p.features : [],
+    }));
+    if (bundle) {
+      bundle = {
+        ...bundle,
+        features: Array.isArray(bundle.features) ? bundle.features : [],
+      };
+    }
+    }
+  } catch (e) {
+    console.error("Failed to fetch products:", e);
   }
-];
 
-export default function ProdutosPage() {
+  const hasStripeCheckout = (p: ProductRow) =>
+    (p.stripe_price_id && p.stripe_price_id.trim() !== "") ||
+    (p.price_cents != null && p.price_cents > 0);
+  const hasPaymentLink = (p: ProductRow) =>
+    p.payment_link && p.payment_link.trim() !== "";
+
   return (
     <div className="flex min-h-screen flex-col bg-[#050f05] text-white font-sans">
       <nav className="sticky top-0 z-50 w-full bg-[#050f05]/80 backdrop-blur-md border-b border-white/5">
@@ -55,7 +80,6 @@ export default function ProdutosPage() {
       </nav>
 
       <main className="flex-1 container mx-auto px-6 py-16">
-        {/* Hero Section */}
         <div className="text-center mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/20 text-[#22c55e] text-xs font-bold uppercase tracking-[0.2em] mb-6">
             <ShoppingBag className="h-4 w-4" />
@@ -69,93 +93,145 @@ export default function ProdutosPage() {
           </p>
         </div>
 
-        {/* Master Combo / Bundle */}
-        <div className="max-w-5xl mx-auto mb-24">
-          <div className="relative overflow-hidden bg-gradient-to-br from-[#0a1a0a] to-[#050f05] border-2 border-[#22c55e]/30 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-12">
-            <div className="absolute top-0 right-0 p-4 md:p-6 opacity-20 md:opacity-100">
-              <Sparkles className="h-8 w-8 md:h-12 md:w-12 text-[#22c55e]" />
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-              <div className="text-center lg:text-left">
-                <div className="inline-block px-4 py-1 rounded-full bg-[#22c55e] text-[#050f05] text-[9px] md:text-[10px] font-black uppercase tracking-widest mb-4 md:mb-6">
-                  Oferta Única
-                </div>
-                <h2 className="text-3xl md:text-4xl font-black mb-4 uppercase tracking-tighter">Coleção Vitalidade Suprema</h2>
-                <p className="text-[#22c55e] font-bold text-base md:text-lg mb-6 md:mb-8 italic leading-snug">"Toda a ciência e todas as receitas por um preço único."</p>
-                <ul className="space-y-3 mb-8 text-left inline-block lg:block">
-                  <li className="flex items-center gap-3 text-white/70 font-medium text-sm md:text-base">
-                    <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-[#22c55e] shrink-0" />
-                    Todos os 4 guias digitais inclusos
-                  </li>
-                  <li className="flex items-center gap-3 text-white/70 font-medium text-sm md:text-base">
-                    <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-[#22c55e] shrink-0" />
-                    BÔNUS: Guia de Compras Afrodisíacas
-                  </li>
-                  <li className="flex items-center gap-3 text-white/70 font-medium text-sm md:text-base">
-                    <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-[#22c55e] shrink-0" />
-                    Acesso imediato via PDF
-                  </li>
-                </ul>
+        {/* Bundle section – from Supabase where is_bundle = true */}
+        {bundle && (
+          <div className="max-w-5xl mx-auto mb-24">
+            <div className="relative overflow-hidden bg-gradient-to-br from-[#0a1a0a] to-[#050f05] border-2 border-[#22c55e]/30 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-12">
+              <div className="absolute top-0 right-0 p-4 md:p-6 opacity-20 md:opacity-100">
+                <Sparkles className="h-8 w-8 md:h-12 md:w-12 text-[#22c55e]" />
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 text-center flex flex-col items-center">
-                <div className="text-white/40 line-through text-base md:text-lg mb-1">R$ 438,00</div>
-                <div className="text-4xl md:text-5xl font-black text-white mb-2">R$ 197,00</div>
-                <div className="text-[#22c55e] font-bold text-[10px] md:text-sm uppercase tracking-widest mb-6 md:mb-8">Economize R$ 241,00</div>
-                <Button className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 md:h-16 rounded-xl text-xs md:text-lg transition-all hover:scale-105 uppercase tracking-widest px-2 leading-tight">
-                  Quero a Coleção Completa
-                </Button>
-                <div className="mt-6 flex flex-col items-center gap-2">
-                  <p className="text-[11px] md:text-xs text-white/50 uppercase font-black tracking-widest flex items-center justify-center gap-2">
-                    <ShieldCheck className="h-4 w-4 text-[#22c55e]" /> Pagamento Seguro
-                  </p>
-                  <p className="text-[10px] md:text-[11px] text-white/30 uppercase font-bold tracking-widest">
-                    Via Pix ou Cartão
-                  </p>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div className="text-center lg:text-left">
+                  <div className="inline-block px-4 py-1 rounded-full bg-[#22c55e] text-[#050f05] text-[9px] md:text-[10px] font-black uppercase tracking-widest mb-4 md:mb-6">
+                    Oferta Única
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-black mb-4 uppercase tracking-tighter">{bundle.name}</h2>
+                  {bundle.description && (
+                    <p className="text-[#22c55e] font-bold text-base md:text-lg mb-6 md:mb-8 italic leading-snug">
+                      {bundle.description}
+                    </p>
+                  )}
+                  <ul className="space-y-3 mb-8 text-left inline-block lg:block">
+                    {bundle.features.length > 0
+                      ? bundle.features.map((f, i) => (
+                          <li key={i} className="flex items-center gap-3 text-white/70 font-medium text-sm md:text-base">
+                            <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-[#22c55e] shrink-0" />
+                            {f}
+                          </li>
+                        ))
+                      : (
+                        <>
+                          <li className="flex items-center gap-3 text-white/70 font-medium text-sm md:text-base">
+                            <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-[#22c55e] shrink-0" />
+                            Todos os guias digitais inclusos
+                          </li>
+                          <li className="flex items-center gap-3 text-white/70 font-medium text-sm md:text-base">
+                            <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-[#22c55e] shrink-0" />
+                            Acesso imediato via PDF
+                          </li>
+                        </>
+                      )}
+                  </ul>
+                </div>
+                <div className="bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 text-center flex flex-col items-center">
+                  <div className="text-4xl md:text-5xl font-black text-white mb-2">{bundle.price_display ?? "—"}</div>
+                  {hasPaymentLink(bundle) ? (
+                    <Button asChild className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 md:h-16 rounded-xl text-xs md:text-lg transition-all hover:scale-105 uppercase tracking-widest px-2 leading-tight">
+                      <a href={bundle.payment_link!} target="_blank" rel="noopener noreferrer">
+                        Quero a Coleção Completa
+                      </a>
+                    </Button>
+                  ) : hasStripeCheckout(bundle) ? (
+                    <CheckoutButton
+                      productId={bundle.id}
+                      productName={bundle.name}
+                      priceCents={bundle.price_cents}
+                      stripePriceId={bundle.stripe_price_id}
+                      className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 md:h-16 rounded-xl text-xs md:text-lg transition-all hover:scale-105 uppercase tracking-widest px-2 leading-tight"
+                    >
+                      Quero a Coleção Completa
+                    </CheckoutButton>
+                  ) : (
+                    <Button disabled className="w-full bg-white/10 text-white/50 font-black h-16 rounded-xl uppercase tracking-widest">
+                      Em breve
+                    </Button>
+                  )}
+                  <div className="mt-6 flex flex-col items-center gap-2">
+                    <p className="text-[11px] md:text-xs text-white/50 uppercase font-black tracking-widest flex items-center justify-center gap-2">
+                      <ShieldCheck className="h-4 w-4 text-[#22c55e]" /> Pagamento Seguro
+                    </p>
+                    <p className="text-[10px] md:text-[11px] text-white/30 uppercase font-bold tracking-widest">
+                      Via Pix ou Cartão
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Individual Products Grid */}
+        {/* Individual products from Supabase */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-24">
-          {products.map((product) => (
-            <Card key={product.id} className="bg-[#0a1a0a] border-white/5 p-8 rounded-[2rem] flex flex-col hover:border-[#22c55e]/20 transition-colors group">
-              <div className="flex justify-between items-start mb-6">
-                <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-[#22c55e]">
-                  {product.tag}
+          {products.length === 0 ? (
+            <div className="md:col-span-2 text-center py-12 text-white/50 font-medium">
+              Nenhum produto no momento. Em breve novidades.
+            </div>
+          ) : (
+            products.map((product) => (
+              <Card key={product.id} className="bg-[#0a1a0a] border-white/5 p-8 rounded-[2rem] flex flex-col hover:border-[#22c55e]/20 transition-colors group">
+                <div className="flex justify-between items-start mb-6">
+                  <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-[#22c55e]">
+                    {product.tag ?? "Produto"}
+                  </div>
+                  <div className="flex text-[#22c55e]">
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                    <Star className="h-4 w-4 fill-current" />
+                  </div>
                 </div>
-                <div className="flex text-[#22c55e]">
-                  <Star className="h-4 w-4 fill-current" />
-                  <Star className="h-4 w-4 fill-current" />
-                  <Star className="h-4 w-4 fill-current" />
-                  <Star className="h-4 w-4 fill-current" />
-                  <Star className="h-4 w-4 fill-current" />
+                <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter group-hover:text-[#22c55e] transition-colors">{product.name}</h3>
+                <p className="text-white/50 text-sm leading-relaxed mb-8 flex-1">
+                  {product.description ?? ""}
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {product.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-xs font-bold text-white/70 uppercase tracking-wide">
+                      <CheckCircle2 className="h-4 w-4 text-[#22c55e]/50" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
+                  <div className="text-2xl font-black">{product.price_display ?? "—"}</div>
+                  {hasPaymentLink(product) ? (
+                    <Button asChild className="bg-white/5 hover:bg-[#22c55e] text-white hover:text-[#050f05] border border-white/10 hover:border-[#22c55e] font-bold rounded-xl transition-all">
+                      <a href={product.payment_link!} target="_blank" rel="noopener noreferrer">
+                        Comprar
+                      </a>
+                    </Button>
+                  ) : hasStripeCheckout(product) ? (
+                    <CheckoutButton
+                      productId={product.id}
+                      productName={product.name}
+                      priceCents={product.price_cents}
+                      stripePriceId={product.stripe_price_id}
+                      className="bg-white/5 hover:bg-[#22c55e] text-white hover:text-[#050f05] border border-white/10 hover:border-[#22c55e] font-bold rounded-xl transition-all"
+                    >
+                      Adicionar
+                    </CheckoutButton>
+                  ) : (
+                    <Button disabled className="bg-white/5 text-white/40 border border-white/10 font-bold rounded-xl">
+                      Em breve
+                    </Button>
+                  )}
                 </div>
-              </div>
-              <h3 className="text-2xl font-black mb-4 uppercase tracking-tighter group-hover:text-[#22c55e] transition-colors">{product.name}</h3>
-              <p className="text-white/50 text-sm leading-relaxed mb-8 flex-1">
-                {product.description}
-              </p>
-              <ul className="space-y-3 mb-8">
-                {product.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-xs font-bold text-white/70 uppercase tracking-wide">
-                    <CheckCircle2 className="h-4 w-4 text-[#22c55e]/50" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
-                <div className="text-2xl font-black">{product.price}</div>
-                <Button className="bg-white/5 hover:bg-[#22c55e] text-white hover:text-[#050f05] border border-white/10 hover:border-[#22c55e] font-bold rounded-xl transition-all">
-                  Adicionar
-                </Button>
-              </div>
-            </Card>
-          ))}
+              </Card>
+            ))
+          )}
         </div>
 
-        {/* Back Button */}
         <div className="text-center">
           <Button asChild variant="ghost" className="text-white/40 hover:text-white hover:bg-white/5 rounded-xl">
             <Link href="/"><ArrowLeft className="mr-2 h-4 w-4" /> Voltar para a Home</Link>
