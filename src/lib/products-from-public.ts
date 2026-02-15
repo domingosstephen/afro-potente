@@ -1,7 +1,7 @@
 /**
  * Products built from PDFs in /public. Used when Supabase has no products.
  * Names are curiosity-driven; no "ebook" in titles.
- * Add price_display, payment_link or stripe_price_id in Supabase to enable checkout.
+ * Add price_display and payment_link (Kiwify or Mercado Pago URL) in Supabase to enable checkout.
  */
 export type ProductFromPublic = {
   id: string;

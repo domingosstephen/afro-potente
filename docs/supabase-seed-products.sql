@@ -76,6 +76,4 @@ on conflict (slug) do nothing;
 
 -- After running: go to Table Editor > products and fill in for each row:
 -- - price_display  e.g. "R$ 97,00"
--- - price_cents    e.g. 9700 (for Stripe)
--- - payment_link   Mercado Pago or Kiwify checkout URL, OR
--- - stripe_price_id  Stripe Price ID (e.g. price_xxx)
+-- - payment_link   Mercado Pago or Kiwify checkout URL (required for Comprar button)

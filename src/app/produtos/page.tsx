@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { createServerSupabase } from "@/lib/supabase-server";
 import { PUBLIC_PDF_PRODUCTS } from "@/lib/products-from-public";
-import { CheckoutButton } from "@/components/CheckoutButton";
 
 export type ProductRow = {
   id: string;
@@ -66,9 +65,6 @@ export default async function ProdutosPage() {
     products = fromPublic.filter((p) => !p.is_bundle);
   }
 
-  const hasStripeCheckout = (p: ProductRow) =>
-    (p.stripe_price_id && p.stripe_price_id.trim() !== "") ||
-    (p.price_cents != null && p.price_cents > 0);
   const hasPaymentLink = (p: ProductRow) =>
     p.payment_link && p.payment_link.trim() !== "";
 
@@ -149,16 +145,6 @@ export default async function ProdutosPage() {
                         Quero a Coleção Completa
                       </a>
                     </Button>
-                  ) : hasStripeCheckout(bundle) ? (
-                    <CheckoutButton
-                      productId={bundle.id}
-                      productName={bundle.name}
-                      priceCents={bundle.price_cents}
-                      stripePriceId={bundle.stripe_price_id}
-                      className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 md:h-16 rounded-xl text-xs md:text-lg transition-all hover:scale-105 uppercase tracking-widest px-2 leading-tight"
-                    >
-                      Quero a Coleção Completa
-                    </CheckoutButton>
                   ) : (
                     <Button disabled className="w-full bg-white/10 text-white/50 font-black h-16 rounded-xl uppercase tracking-widest">
                       Em breve
@@ -169,8 +155,8 @@ export default async function ProdutosPage() {
                       <ShieldCheck className="h-4 w-4 text-[#22c55e]" /> Pagamento Seguro
                     </p>
                     <p className="text-[10px] md:text-[11px] text-white/30 uppercase font-bold tracking-widest">
-                      Via Pix ou Cartão
-                    </p>
+                    Kiwify · Mercado Pago
+                  </p>
                   </div>
                 </div>
               </div>
@@ -219,16 +205,6 @@ export default async function ProdutosPage() {
                         Comprar
                       </a>
                     </Button>
-                  ) : hasStripeCheckout(product) ? (
-                    <CheckoutButton
-                      productId={product.id}
-                      productName={product.name}
-                      priceCents={product.price_cents}
-                      stripePriceId={product.stripe_price_id}
-                      className="bg-white/5 hover:bg-[#22c55e] text-white hover:text-[#050f05] border border-white/10 hover:border-[#22c55e] font-bold rounded-xl transition-all"
-                    >
-                      Adicionar
-                    </CheckoutButton>
                   ) : (
                     <Button disabled className="bg-white/5 text-white/40 border border-white/10 font-bold rounded-xl">
                       Em breve

@@ -1,12 +1,6 @@
 # Webhooks
 
-## Stripe
-
-- **URL:** `https://yourdomain.com/api/webhooks/stripe`
-- **Events:** `checkout.session.completed`
-- **Env:** `STRIPE_WEBHOOK_SECRET` (signing secret from Stripe Dashboard > Webhooks)
-
-Stripe sends the full session; we read `customer_email`, `metadata.product_id`, then look up the product in Supabase for `pdf_url` and send the order confirmation email.
+Payments are handled by **Kiwify** and **Mercado Pago** only. Configure the webhooks below so we can record orders and send the PDF link by email after payment.
 
 ## Mercado Pago
 

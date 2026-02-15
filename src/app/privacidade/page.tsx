@@ -36,7 +36,7 @@ export default function PrivacidadePage() {
           </p>
           <h2 className="text-white font-black text-lg uppercase tracking-wider mt-8">Compartilhamento</h2>
           <p>
-            Não vendemos seus dados. Podemos compartilhar dados com prestadores de serviço essenciais (plataforma de pagamento, e-mail, hospedagem) sob contrato que garante proteção. Dados de pagamento são processados diretamente pelos provedores de pagamento (Stripe, Mercado Pago, Kiwify, etc.), conforme as políticas deles.
+            Não vendemos seus dados. Podemos compartilhar dados com prestadores de serviço essenciais (plataforma de pagamento, e-mail, hospedagem) sob contrato que garante proteção. Dados de pagamento são processados diretamente pelos provedores de pagamento (Mercado Pago e Kiwify), conforme as políticas deles.
           </p>
           <h2 className="text-white font-black text-lg uppercase tracking-wider mt-8">Retenção e seus direitos</h2>
           <p>
