@@ -1,7 +1,7 @@
 /**
  * Products built from PDFs in /public. Used when Supabase has no products.
  * Names are curiosity-driven; no "ebook" in titles.
- * Add price_display and payment_link (Kiwify or Mercado Pago URL) in Supabase to enable checkout.
+ * Add price_display and payment_link_kiwify and/or payment_link_mercadopago in Supabase to enable checkout.
  */
 export type ProductFromPublic = {
   id: string;
@@ -14,6 +14,8 @@ export type ProductFromPublic = {
   features: string[];
   pdf_url: string | null;
   payment_link: string | null;
+  payment_link_kiwify: string | null;
+  payment_link_mercadopago: string | null;
   stripe_price_id: string | null;
   is_bundle: boolean;
   sort_order: number;
@@ -35,6 +37,8 @@ export const PUBLIC_PDF_PRODUCTS: ProductFromPublic[] = [
     ],
     pdf_url: "/Full%20EBook.pdf",
     payment_link: null,
+    payment_link_kiwify: null,
+    payment_link_mercadopago: null,
     stripe_price_id: null,
     is_bundle: true,
     sort_order: 0,
@@ -54,6 +58,8 @@ export const PUBLIC_PDF_PRODUCTS: ProductFromPublic[] = [
     ],
     pdf_url: "/EBook%20para%20casais.pdf",
     payment_link: null,
+    payment_link_kiwify: null,
+    payment_link_mercadopago: null,
     stripe_price_id: null,
     is_bundle: false,
     sort_order: 1,
@@ -73,6 +79,8 @@ export const PUBLIC_PDF_PRODUCTS: ProductFromPublic[] = [
     ],
     pdf_url: "/EBook%20A%C3%A7%C3%A3o%20rapida.pdf",
     payment_link: null,
+    payment_link_kiwify: null,
+    payment_link_mercadopago: null,
     stripe_price_id: null,
     is_bundle: false,
     sort_order: 2,
@@ -92,6 +100,8 @@ export const PUBLIC_PDF_PRODUCTS: ProductFromPublic[] = [
     ],
     pdf_url: "/EBook%20Guia%20de%20estamina.pdf",
     payment_link: null,
+    payment_link_kiwify: null,
+    payment_link_mercadopago: null,
     stripe_price_id: null,
     is_bundle: false,
     sort_order: 3,

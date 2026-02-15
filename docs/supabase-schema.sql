@@ -13,6 +13,8 @@ create table if not exists public.products (
   features jsonb default '[]',
   pdf_url text,
   payment_link text,
+  payment_link_kiwify text,
+  payment_link_mercadopago text,
   stripe_price_id text,
   is_bundle boolean default false,
   sort_order integer default 0,

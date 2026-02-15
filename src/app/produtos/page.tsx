@@ -16,6 +16,8 @@ export type ProductRow = {
   features: string[];
   pdf_url: string | null;
   payment_link: string | null;
+  payment_link_kiwify: string | null;
+  payment_link_mercadopago: string | null;
   stripe_price_id: string | null;
   is_bundle: boolean;
   sort_order: number;
@@ -65,8 +67,10 @@ export default async function ProdutosPage() {
     products = fromPublic.filter((p) => !p.is_bundle);
   }
 
-  const hasPaymentLink = (p: ProductRow) =>
-    p.payment_link && p.payment_link.trim() !== "";
+  const link = (p: ProductRow, key: "payment_link" | "payment_link_kiwify" | "payment_link_mercadopago") =>
+    p[key] && p[key]!.trim() !== "" ? p[key]! : null;
+  const hasAnyPaymentLink = (p: ProductRow) =>
+    link(p, "payment_link_kiwify") != null || link(p, "payment_link_mercadopago") != null || link(p, "payment_link") != null;
 
   return (
     <div className="flex min-h-screen flex-col bg-[#050f05] text-white font-sans">
@@ -139,12 +143,30 @@ export default async function ProdutosPage() {
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-6 md:p-8 text-center flex flex-col items-center">
                   <div className="text-4xl md:text-5xl font-black text-white mb-2">{bundle.price_display ?? "—"}</div>
-                  {hasPaymentLink(bundle) ? (
-                    <Button asChild className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 md:h-16 rounded-xl text-xs md:text-lg transition-all hover:scale-105 uppercase tracking-widest px-2 leading-tight">
-                      <a href={bundle.payment_link!} target="_blank" rel="noopener noreferrer">
-                        Quero a Coleção Completa
-                      </a>
-                    </Button>
+                  {hasAnyPaymentLink(bundle) ? (
+                    <div className="w-full space-y-3">
+                      {link(bundle, "payment_link_kiwify") && (
+                        <Button asChild className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 md:h-14 rounded-xl text-xs md:text-base transition-all hover:scale-105 uppercase tracking-widest px-2">
+                          <a href={link(bundle, "payment_link_kiwify")!} target="_blank" rel="noopener noreferrer">
+                            Comprar com Kiwify
+                          </a>
+                        </Button>
+                      )}
+                      {link(bundle, "payment_link_mercadopago") && (
+                        <Button asChild className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 md:h-14 rounded-xl text-xs md:text-base transition-all hover:scale-105 uppercase tracking-widest px-2">
+                          <a href={link(bundle, "payment_link_mercadopago")!} target="_blank" rel="noopener noreferrer">
+                            Comprar com Mercado Pago
+                          </a>
+                        </Button>
+                      )}
+                      {!link(bundle, "payment_link_kiwify") && !link(bundle, "payment_link_mercadopago") && link(bundle, "payment_link") && (
+                        <Button asChild className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-16 md:h-16 rounded-xl text-xs md:text-lg transition-all hover:scale-105 uppercase tracking-widest px-2">
+                          <a href={link(bundle, "payment_link")!} target="_blank" rel="noopener noreferrer">
+                            Quero a Coleção Completa
+                          </a>
+                        </Button>
+                      )}
+                    </div>
                   ) : (
                     <Button disabled className="w-full bg-white/10 text-white/50 font-black h-16 rounded-xl uppercase tracking-widest">
                       Em breve
@@ -197,18 +219,39 @@ export default async function ProdutosPage() {
                     </li>
                   ))}
                 </ul>
-                <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
-                  <div className="text-2xl font-black">{product.price_display ?? "—"}</div>
-                  {hasPaymentLink(product) ? (
-                    <Button asChild className="bg-white/5 hover:bg-[#22c55e] text-white hover:text-[#050f05] border border-white/10 hover:border-[#22c55e] font-bold rounded-xl transition-all">
-                      <a href={product.payment_link!} target="_blank" rel="noopener noreferrer">
-                        Comprar
-                      </a>
-                    </Button>
-                  ) : (
-                    <Button disabled className="bg-white/5 text-white/40 border border-white/10 font-bold rounded-xl">
-                      Em breve
-                    </Button>
+                <div className="flex flex-col gap-3 mt-auto pt-6 border-t border-white/5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-black">{product.price_display ?? "—"}</span>
+                    {!hasAnyPaymentLink(product) && (
+                      <Button disabled className="bg-white/5 text-white/40 border border-white/10 font-bold rounded-xl">
+                        Em breve
+                      </Button>
+                    )}
+                  </div>
+                  {hasAnyPaymentLink(product) && (
+                    <div className="flex flex-wrap gap-2">
+                      {link(product, "payment_link_kiwify") && (
+                        <Button asChild size="sm" className="bg-white/5 hover:bg-[#22c55e] text-white hover:text-[#050f05] border border-white/10 hover:border-[#22c55e] font-bold rounded-xl transition-all flex-1 min-w-0">
+                          <a href={link(product, "payment_link_kiwify")!} target="_blank" rel="noopener noreferrer">
+                            Kiwify
+                          </a>
+                        </Button>
+                      )}
+                      {link(product, "payment_link_mercadopago") && (
+                        <Button asChild size="sm" className="bg-white/5 hover:bg-[#22c55e] text-white hover:text-[#050f05] border border-white/10 hover:border-[#22c55e] font-bold rounded-xl transition-all flex-1 min-w-0">
+                          <a href={link(product, "payment_link_mercadopago")!} target="_blank" rel="noopener noreferrer">
+                            Mercado Pago
+                          </a>
+                        </Button>
+                      )}
+                      {!link(product, "payment_link_kiwify") && !link(product, "payment_link_mercadopago") && link(product, "payment_link") && (
+                        <Button asChild className="bg-white/5 hover:bg-[#22c55e] text-white hover:text-[#050f05] border border-white/10 hover:border-[#22c55e] font-bold rounded-xl transition-all">
+                          <a href={link(product, "payment_link")!} target="_blank" rel="noopener noreferrer">
+                            Comprar
+                          </a>
+                        </Button>
+                      )}
+                    </div>
                   )}
                 </div>
               </Card>
