@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Zap, Menu, X, ShoppingBag, BookOpen, Activity, Mail, User } from "lucide-react";
+import { Zap, Menu, X, ShoppingBag, BookOpen, Activity, Mail, User, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -20,6 +20,7 @@ export function Navbar() {
 
   const navLinks = [
     { name: "Loja", href: "/produtos", icon: <ShoppingBag className="h-4 w-4" /> },
+    { name: "Comunidade", href: "/comunidade", icon: <Users className="h-4 w-4" /> },
     { name: "Guia de Vitalidade", href: "/guia-de-bem-estar", icon: <BookOpen className="h-4 w-4" /> },
     { name: "Exercícios Naturais", href: "/exercicios", icon: <Activity className="h-4 w-4" /> },
     { name: "Contato", href: "/contato", icon: <Mail className="h-4 w-4" /> },

@@ -287,6 +287,7 @@ export default function Home() {
               <div className="text-center md:text-left">
                 <h4 className="font-black text-[10px] md:text-xs uppercase tracking-[0.2em] mb-8 md:mb-10 text-[#22c55e]">Recursos</h4>
                 <ul className="space-y-4 text-[10px] md:text-xs text-white/40 font-black uppercase tracking-widest">
+                  <li><Link href="/comunidade" className="hover:text-white transition-colors">Comunidade</Link></li>
                   <li><Link href="/guia-de-bem-estar" className="hover:text-white transition-colors">Guia</Link></li>
                   <li><Link href="/contato" className="hover:text-white transition-colors">Contato</Link></li>
                   <li><Link href="/privacidade" className="hover:text-white transition-colors">Privacidade</Link></li>
