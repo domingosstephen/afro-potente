@@ -74,11 +74,11 @@ export default function Home() {
               <div className="relative mt-8 lg:mt-0">
                 <div className="aspect-square rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl shadow-[#22c55e]/10 border border-white/5 relative z-10">
                   <img 
-                    src="https://images.unsplash.com/photo-1544787210-2827448b320c?q=80&w=1470&auto=format&fit=crop" 
-                    alt="Ervas e Raízes Naturais" 
-                    className="h-full w-full object-cover grayscale-[10%] contrast-[110%]"
+                    src="/hero-guia-vitalidade.png" 
+                    alt="Guia Natural da Vitalidade - Fórmulas naturais e seguras. Recupere sua confiança naturalmente." 
+                    className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050f05] via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050f05]/40 via-transparent to-transparent pointer-events-none" />
                 </div>
                 
                 {/* Floating Badge - Repositioned for mobile */}
