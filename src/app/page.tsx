@@ -72,11 +72,11 @@ export default function Home() {
               </div>
               
               <div className="relative mt-8 lg:mt-0">
-                <div className="aspect-square rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl shadow-[#22c55e]/10 border border-white/5 relative z-10">
+                <div className="aspect-[3/4] max-w-[480px] mx-auto lg:mx-0 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl shadow-[#22c55e]/10 border border-white/5 relative z-10 bg-[#0a1a0a]">
                   <img 
                     src="/hero-guia-vitalidade.png" 
                     alt="Guia Natural da Vitalidade - Fórmulas naturais e seguras. Recupere sua confiança naturalmente." 
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050f05]/40 via-transparent to-transparent pointer-events-none" />
                 </div>
