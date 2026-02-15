@@ -3,6 +3,7 @@ import { Zap, ArrowLeft, ShoppingBag, CheckCircle2, Star, ShieldCheck, Sparkles 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { createServerSupabase } from "@/lib/supabase-server";
+import { PUBLIC_PDF_PRODUCTS } from "@/lib/products-from-public";
 import { CheckoutButton } from "@/components/CheckoutButton";
 
 export type ProductRow = {
@@ -56,6 +57,13 @@ export default async function ProdutosPage() {
     }
   } catch (e) {
     console.error("Failed to fetch products:", e);
+  }
+
+  // Fallback: use PDFs from /public when Supabase has no products
+  if (products.length === 0 && !bundle) {
+    const fromPublic = PUBLIC_PDF_PRODUCTS;
+    bundle = fromPublic.find((p) => p.is_bundle) ?? null;
+    products = fromPublic.filter((p) => !p.is_bundle);
   }
 
   const hasStripeCheckout = (p: ProductRow) =>
