@@ -81,8 +81,8 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050f05]/40 via-transparent to-transparent pointer-events-none" />
                 </div>
                 
-                {/* Floating Badge - Repositioned for mobile */}
-                <div className="absolute -bottom-6 -left-4 md:-bottom-8 md:-left-8 bg-[#0a1a0a] border border-white/5 p-5 md:p-8 rounded-2xl shadow-2xl max-w-[220px] md:max-w-[280px] z-20">
+                {/* Floating Badge - at bottom edge of hero image to reveal text above */}
+                <div className="absolute bottom-0 -left-4 md:bottom-0 md:-left-8 bg-[#0a1a0a] border border-white/5 p-5 md:p-8 rounded-t-2xl rounded-b-none md:rounded-t-2xl md:rounded-b-none shadow-2xl max-w-[220px] md:max-w-[280px] z-20">
                   <div className="flex items-center gap-3 mb-2 md:mb-3">
                     <Globe className="h-5 w-5 md:h-6 md:w-6 text-[#22c55e]" />
                     <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-[#22c55e]">Raízes da Vitalidade</span>
