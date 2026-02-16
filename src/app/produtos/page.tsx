@@ -63,11 +63,13 @@ export default async function ProdutosPage() {
     console.error("Failed to fetch products:", e);
   }
 
-  // Fallback: use PDFs from /public when Supabase has no products
+  // Fallback: use PDFs from /public when Supabase has no products (no prices/links)
+  let usedFallback = false;
   if (products.length === 0 && !bundle) {
     const fromPublic = PUBLIC_PDF_PRODUCTS;
     bundle = fromPublic.find((p) => p.is_bundle) ?? null;
     products = fromPublic.filter((p) => !p.is_bundle);
+    usedFallback = true;
   }
 
   const link = (p: ProductRow, key: "payment_link" | "payment_link_kiwify" | "payment_link_mercadopago") =>
@@ -261,6 +263,13 @@ export default async function ProdutosPage() {
             ))
           )}
         </div>
+
+        {usedFallback && (
+          <div className="mx-auto mt-12 max-w-xl rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 text-center text-sm text-amber-200/90">
+            <p className="font-medium">Preços e links de pagamento vêm do Supabase.</p>
+            <p className="mt-1 text-white/60">Configure <code className="text-white/80">NEXT_PUBLIC_SUPABASE_URL</code> e <code className="text-white/80">SUPABASE_SERVICE_ROLE_KEY</code> no ambiente (ex.: Vercel) para exibir seus produtos aqui. Verifique <a href="/api/supabase-status" className="underline hover:text-amber-200" target="_blank" rel="noopener noreferrer">/api/supabase-status</a>.</p>
+          </div>
+        )}
 
         <div className="text-center">
           <Button asChild variant="ghost" className="text-white/40 hover:text-white hover:bg-white/5 rounded-xl">
