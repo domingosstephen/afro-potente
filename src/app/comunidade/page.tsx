@@ -12,6 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { createServerSupabase } from "@/lib/supabase-server";
 
+export const dynamic = "force-dynamic";
+
 export default async function ComunidadePage() {
   type CommunityProduct = {
     name: string;

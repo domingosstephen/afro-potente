@@ -5,6 +5,9 @@ import { Card } from "@/components/ui/card";
 import { createServerSupabase } from "@/lib/supabase-server";
 import { PUBLIC_PDF_PRODUCTS } from "@/lib/products-from-public";
 
+// Always fetch fresh product data from Supabase so price/payment link updates appear
+export const dynamic = "force-dynamic";
+
 export type ProductRow = {
   id: string;
   name: string;
