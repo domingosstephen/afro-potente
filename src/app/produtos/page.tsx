@@ -88,7 +88,7 @@ export default async function ProdutosPage() {
 
       <main className="flex-1 pt-20">
         {/* Hero Header */}
-        <section className="bg-[#2B1A0E] grain-overlay grain-light py-20 md:py-28 lg:py-36 relative overflow-hidden">
+        <section className="bg-[#2B1A0E] grain-overlay grain-light pt-12 pb-16 md:pt-16 md:pb-24 relative overflow-hidden">
           {/* Decorative background elements */}
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B94A2F]/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#B94A2F]/4 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3" />
