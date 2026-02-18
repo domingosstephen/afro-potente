@@ -1,64 +1,57 @@
 import Link from "next/link";
-import { Zap, ArrowLeft, Heart } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 export default function HormoniosPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-[#050f05] text-white font-sans">
-      <nav className="sticky top-0 z-50 w-full bg-[#050f05]/80 backdrop-blur-md border-b border-white/5">
-        <div className="container mx-auto flex h-20 items-center justify-between px-6">
-          <Link href="/" className="text-2xl font-black tracking-tighter flex items-center gap-2">
-            <Zap className="fill-[#22c55e] text-[#22c55e] h-6 w-6" />
-            AFRO POTENTE
-          </Link>
-        </div>
-      </nav>
+    <div className="flex min-h-screen flex-col bg-[#F5EDE0] font-sans">
+      <Navbar />
 
-      <main className="flex-1 container mx-auto px-6 py-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="p-6 bg-[#22c55e]/10 rounded-3xl text-[#22c55e] mb-8 inline-block">
-              <Heart className="h-12 w-12" />
+      <main className="flex-1 pt-20">
+        <div className="container mx-auto px-4 md:px-6 py-12 md:py-20">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h1 className="font-serif text-[#2B1A0E] mb-4">Hormonios, Desejo & Rotina</h1>
+              <p className="text-lg text-[#2B1A0E]/60 leading-relaxed">
+                Como o estilo de vida influencia diretamente sua vitalidade e bem-estar.
+              </p>
             </div>
-            <h1 className="text-4xl lg:text-6xl font-black mb-6 uppercase tracking-tighter">
-              Hormônios, Desejo & <span className="text-[#22c55e]">Rotina</span>
-            </h1>
-          </div>
 
-          <div className="bg-[#0a1a0a] border border-white/5 p-10 rounded-[2.5rem] mb-12 space-y-8">
-            <section>
-              <h2 className="text-2xl font-black mb-4 uppercase text-[#22c55e]">Equilíbrio Integral</h2>
-              <p className="text-lg text-white/60 font-medium leading-relaxed">
-                Os hormônios são os mensageiros químicos do corpo. Para manter o desejo natural e a vitalidade, é essencial buscar um equilíbrio que envolva múltiplos pilares do estilo de vida.
-              </p>
-            </section>
+            <div className="bg-[#FAF7F2] border border-[#2B1A0E]/10 p-6 md:p-10 rounded-xl mb-10 space-y-8">
+              <section>
+                <h2 className="font-serif text-xl text-[#2B1A0E] mb-3">Equilibrio Integral</h2>
+                <p className="text-[#2B1A0E]/60 leading-relaxed max-w-none">
+                  Os hormonios sao os mensageiros quimicos do corpo. Para manter o desejo natural e a vitalidade, e essencial buscar um equilibrio que envolva multiplos pilares do estilo de vida.
+                </p>
+              </section>
 
-            <section>
-              <h2 className="text-2xl font-black mb-4 uppercase text-[#22c55e]">O Impacto do Sono e Estresse</h2>
-              <p className="text-lg text-white/60 font-medium leading-relaxed">
-                A privação de sono e o estresse crônico elevam o cortisol, o que pode impactar negativamente a produção de hormônios ligados à vitalidade íntima. Priorizar o descanso e técnicas de relaxamento é fundamental.
-              </p>
-            </section>
+              <section>
+                <h2 className="font-serif text-xl text-[#2B1A0E] mb-3">O Impacto do Sono e Estresse</h2>
+                <p className="text-[#2B1A0E]/60 leading-relaxed max-w-none">
+                  A privacao de sono e o estresse cronico elevam o cortisol, o que pode impactar negativamente a producao de hormonios ligados a vitalidade. Priorizar o descanso e tecnicas de relaxamento e fundamental.
+                </p>
+              </section>
 
-            <section>
-              <h2 className="text-2xl font-black mb-4 uppercase text-[#22c55e]">Nutrição Funcional</h2>
-              <p className="text-lg text-white/60 font-medium leading-relaxed">
-                Gorduras saudáveis, minerais como o zinco e vitaminas específicas fornecem a base necessária para que o sistema endócrino funcione de maneira otimizada.
-              </p>
-            </section>
-          </div>
+              <section>
+                <h2 className="font-serif text-xl text-[#2B1A0E] mb-3">Nutricao Funcional</h2>
+                <p className="text-[#2B1A0E]/60 leading-relaxed max-w-none">
+                  Gorduras saudaveis, minerais como o zinco e vitaminas especificas fornecem a base necessaria para que o sistema endocrino funcione de maneira otimizada.
+                </p>
+              </section>
+            </div>
 
-          <div className="flex justify-center">
-          <Button asChild variant="outline" size="lg" className="border-white/10 hover:bg-white/5 text-white font-black h-16 px-10 rounded-xl text-lg">
-            <Link href="/guia-de-bem-estar"><ArrowLeft className="mr-2 h-5 w-5" /> Voltar ao Guia</Link>
-          </Button>
+            <div className="flex justify-center">
+              <Button asChild variant="outline" size="lg">
+                <Link href="/guia-de-bem-estar"><ArrowLeft className="mr-2 h-4 w-4" /> Voltar ao Guia</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </main>
 
-      <footer className="py-12 border-t border-white/5 text-center">
-        <p className="text-[10px] text-white/20 font-bold uppercase tracking-[0.2em]">© 2026 Afro Potente</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

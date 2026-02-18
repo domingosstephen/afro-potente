@@ -1,72 +1,62 @@
 import Link from "next/link";
-import { Zap, ArrowLeft, Activity, Heart, Wind, Move } from "lucide-react";
+import { ArrowLeft, Heart, Wind, Move } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 const cards = [
   {
-    title: "Consciência corporal",
-    desc: "Aprenda a ouvir os sinais do seu corpo e a desenvolver uma conexão mais profunda com sua vitalidade.",
-    icon: <Heart className="h-6 w-6 text-[#22c55e]" />
+    title: "Consciencia corporal",
+    desc: "Aprenda a ouvir os sinais do seu corpo e a desenvolver uma conexao mais profunda com sua vitalidade.",
+    icon: <Heart className="h-6 w-6 text-[#B94A2F]" />
   },
   {
-    title: "Assoalho pélvico",
-    desc: "Exercícios focados no fortalecimento e controle muscular para homens e mulheres.",
-    icon: <Move className="h-6 w-6 text-[#22c55e]" />
+    title: "Assoalho pelvico",
+    desc: "Exercicios focados no fortalecimento e controle muscular para homens e mulheres.",
+    icon: <Move className="h-6 w-6 text-[#B94A2F]" />
   },
   {
-    title: "Respiração e relaxamento",
-    desc: "Técnicas de respiração que auxiliam no controle do estresse e na melhora da circulação.",
-    icon: <Wind className="h-6 w-6 text-[#22c55e]" />
+    title: "Respiracao e relaxamento",
+    desc: "Tecnicas de respiracao que auxiliam no controle do estresse e na melhora da circulacao.",
+    icon: <Wind className="h-6 w-6 text-[#B94A2F]" />
   }
 ];
 
 export default function ExerciciosPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-[#050f05] text-white font-sans">
-      <nav className="sticky top-0 z-50 w-full bg-[#050f05]/80 backdrop-blur-md border-b border-white/5">
-        <div className="container mx-auto flex h-20 items-center justify-between px-6">
-          <Link href="/" className="text-2xl font-black tracking-tighter flex items-center gap-2">
-            <Zap className="fill-[#22c55e] text-[#22c55e] h-6 w-6" />
-            AFRO POTENTE
-          </Link>
-        </div>
-      </nav>
+    <div className="flex min-h-screen flex-col bg-[#F5EDE0] font-sans">
+      <Navbar />
 
-      <main className="flex-1 container mx-auto px-6 py-20">
-        <div className="max-w-4xl mx-auto text-center mb-16">
-          <div className="p-6 bg-[#22c55e]/10 rounded-3xl text-[#22c55e] mb-8 inline-block">
-            <Activity className="h-12 w-12" />
+      <main className="flex-1 pt-20">
+        <div className="container mx-auto px-4 md:px-6 py-12 md:py-20">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h1 className="font-serif text-[#2B1A0E] mb-4">Exercicios Naturais</h1>
+            <p className="text-lg text-[#2B1A0E]/60 max-w-2xl mx-auto leading-relaxed">
+              Praticas focadas em consciencia corporal e equilibrio para uma vida mais vital.
+            </p>
           </div>
-          <h1 className="text-4xl lg:text-6xl font-black mb-6 uppercase tracking-tighter">
-            Exercícios <span className="text-[#22c55e]">Naturais</span>
-          </h1>
-          <p className="text-xl text-white/40 max-w-2xl mx-auto font-medium leading-relaxed">
-            Práticas focadas em consciência corporal e equilíbrio para uma vida mais vital.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {cards.map((card, i) => (
-            <div key={i} className="bg-[#0a1a0a] border border-white/5 p-8 rounded-[2rem] hover:border-[#22c55e]/30 transition-all text-center">
-              <div className="mb-6 p-4 bg-white/5 w-fit rounded-2xl mx-auto">
-                {card.icon}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
+            {cards.map((card, i) => (
+              <div key={i} className="bg-[#FAF7F2] border border-[#2B1A0E]/10 p-6 md:p-8 rounded-xl text-center hover:shadow-[0_4px_16px_rgba(43,26,14,0.12)] hover:-translate-y-0.5 transition-all duration-200">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#B94A2F]/10 mb-5">
+                  {card.icon}
+                </div>
+                <h3 className="font-serif text-lg text-[#2B1A0E] mb-3">{card.title}</h3>
+                <p className="text-sm text-[#2B1A0E]/60 leading-relaxed max-w-none">{card.desc}</p>
               </div>
-              <h3 className="text-xl font-black mb-4 uppercase text-[#22c55e]">{card.title}</h3>
-              <p className="text-sm text-white/40 leading-relaxed font-medium">{card.desc}</p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <div className="flex justify-center">
-          <Button asChild variant="outline" size="lg" className="border-white/10 hover:bg-white/5 text-white font-black h-16 px-10 rounded-xl text-lg">
-            <Link href="/guia-de-bem-estar"><ArrowLeft className="mr-2 h-5 w-5" /> Voltar ao Guia</Link>
-          </Button>
+          <div className="flex justify-center">
+            <Button asChild variant="outline" size="lg">
+              <Link href="/guia-de-bem-estar"><ArrowLeft className="mr-2 h-4 w-4" /> Voltar ao Guia</Link>
+            </Button>
+          </div>
         </div>
       </main>
 
-      <footer className="py-12 border-t border-white/5 text-center">
-        <p className="text-[10px] text-white/20 font-bold uppercase tracking-[0.2em]">© 2026 Afro Potente</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

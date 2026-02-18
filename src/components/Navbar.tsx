@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Zap, Menu, X, ShoppingBag, BookOpen, Activity, Mail, User, Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
@@ -19,89 +18,78 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Loja", href: "/produtos", icon: <ShoppingBag className="h-4 w-4" /> },
-    { name: "Comunidade", href: "/comunidade", icon: <Users className="h-4 w-4" /> },
-    { name: "Guia de Vitalidade", href: "/guia-de-bem-estar", icon: <BookOpen className="h-4 w-4" /> },
-    { name: "Exercícios Naturais", href: "/exercicios", icon: <Activity className="h-4 w-4" /> },
-    { name: "Contato", href: "/contato", icon: <Mail className="h-4 w-4" /> },
+    { name: "Receitas", href: "/guia-de-bem-estar" },
+    { name: "Como Funciona", href: "/como-funciona" },
+    { name: "Comunidade", href: "/comunidade" },
+    { name: "Loja", href: "/produtos" },
+    { name: "Contato", href: "/contato" },
   ];
 
   return (
-    <nav 
+    <nav
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-        scrolled ? "bg-[#050f05]/90 backdrop-blur-lg py-3" : "bg-[#050f05]/80 backdrop-blur-md py-5"
-      } border-b border-white/5`}
+        scrolled
+          ? "bg-[#F5EDE0]/95 backdrop-blur-md py-3 shadow-[0_2px_12px_rgba(43,26,14,0.1)]"
+          : "bg-[#F5EDE0] py-5"
+      } border-b border-[#2B1A0E]/10`}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="text-xl md:text-2xl font-black tracking-tighter flex items-center gap-2 z-50">
-            <Zap className="fill-[#22c55e] text-[#22c55e] h-5 w-5 md:h-6 md:w-6" />
-            <span className="inline-block">AFRO POTENTE</span>
+          <Link href="/" className="font-serif text-xl md:text-2xl text-[#2B1A0E] z-50">
+            Afro Potente
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8 text-[10px] font-black text-white/50 uppercase tracking-[0.2em]">
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link 
-                key={link.name} 
-                href={link.href} 
-                className="hover:text-[#22c55e] transition-colors"
+              <Link
+                key={link.name}
+                href={link.href}
+                className="font-sans font-semibold text-sm text-[#2B1A0E] hover:text-[#B94A2F] transition-colors tracking-[0.02em]"
               >
                 {link.name}
               </Link>
             ))}
           </div>
 
-          {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button asChild variant="ghost" className="text-white/50 hover:text-white hover:bg-white/5 font-bold uppercase tracking-widest text-[10px]">
-              <Link href="/contato">Entrar</Link>
-            </Button>
-            <Link href="/contato" className="h-10 w-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#22c55e]/10 hover:border-[#22c55e]/30 transition-all group">
-              <User className="h-5 w-5 text-white/30 group-hover:text-[#22c55e]" />
-            </Link>
+            <a
+              href="https://wa.me/5500000000000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#B94A2F] hover:bg-[#9E3E27] text-[#F5EDE0] font-sans font-semibold text-sm uppercase tracking-[0.05em] px-6 py-3 rounded-lg transition-all duration-200 hover:scale-[1.02]"
+            >
+              Receber no WhatsApp
+            </a>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <div className="flex lg:hidden items-center gap-3 z-[130]">
-            <Link href="/contato" className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-              <User className="h-4 w-4 text-white/30" />
-            </Link>
-            <button 
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-white hover:text-[#22c55e] transition-colors bg-[#0a1a0a] rounded-lg border border-white/10 shadow-lg"
-              aria-label={isOpen ? "Fechar Menu" : "Abrir Menu"}
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden p-2 text-[#2B1A0E] hover:text-[#B94A2F] transition-colors z-[130]"
+            aria-label={isOpen ? "Fechar Menu" : "Abrir Menu"}
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Dark Backdrop - Blurs and darkens the site content */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/80 backdrop-blur-md z-[110] lg:hidden"
+              className="fixed inset-0 bg-[#2B1A0E]/60 backdrop-blur-sm z-[110] lg:hidden"
             />
-            
-            {/* Menu Panel - Slides from the top and stays ON TOP of everything */}
             <motion.div
-              initial={{ opacity: 0, y: -50 }}
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed top-0 left-0 right-0 z-[120] lg:hidden bg-[#0a1a0a] border-b border-[#22c55e]/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] pt-24 px-6 pb-12 flex flex-col rounded-b-[3rem]"
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="fixed top-0 left-0 right-0 z-[120] lg:hidden bg-[#2B1A0E] pt-24 px-6 pb-10 flex flex-col"
             >
-              <div className="flex flex-col gap-3">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#22c55e] mb-2 ml-2">Navegação</p>
+              <div className="flex flex-col gap-1">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.name}
@@ -109,38 +97,26 @@ export function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
                   >
-                    <Link 
+                    <Link
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 active:bg-[#22c55e]/10 transition-all"
+                      className="block py-4 px-4 text-[#F5EDE0]/90 font-sans font-semibold text-base hover:text-[#B94A2F] transition-colors border-b border-[#F5EDE0]/10"
                     >
-                      <div className="p-3 bg-white/5 rounded-xl text-[#22c55e]">
-                        {link.icon}
-                      </div>
-                      <span className="font-black uppercase tracking-widest text-xs text-white/90">
-                        {link.name}
-                      </span>
+                      {link.name}
                     </Link>
                   </motion.div>
                 ))}
               </div>
-
-              <div className="mt-8 space-y-3">
-                <Button asChild className="w-full bg-[#22c55e] hover:bg-[#1ea34d] text-[#050f05] font-black h-14 rounded-xl text-xs uppercase tracking-widest">
-                  <Link href="/como-funciona" onClick={() => setIsOpen(false)}>Fazer Avaliação</Link>
-                </Button>
-                <Button asChild variant="outline" className="w-full border-white/10 text-white font-black h-14 rounded-xl text-xs uppercase tracking-widest">
-                  <Link href="/contato" onClick={() => setIsOpen(false)}>Área do Paciente</Link>
-                </Button>
-              </div>
-
-              {/* Close Handle - Visual cue that it can be closed */}
-              <div className="flex justify-center mt-8">
-                <button 
+              <div className="mt-8">
+                <a
+                  href="https://wa.me/5500000000000"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
-                  className="h-1.5 w-12 bg-white/10 rounded-full"
-                  aria-label="Fechar Menu"
-                />
+                  className="w-full block text-center bg-[#B94A2F] hover:bg-[#9E3E27] text-[#F5EDE0] font-sans font-semibold text-sm uppercase tracking-[0.05em] px-6 py-4 rounded-lg transition-all"
+                >
+                  Receber no WhatsApp
+                </a>
               </div>
             </motion.div>
           </>

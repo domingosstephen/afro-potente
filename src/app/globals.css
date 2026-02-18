@@ -4,26 +4,33 @@
 
 @layer base {
   :root {
-    --background: 120 40% 4%;
-    --foreground: 0 0% 100%;
-    --card: 120 40% 6%;
-    --card-foreground: 0 0% 100%;
-    --popover: 120 40% 4%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 142 71% 45%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 120 40% 10%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 120 40% 10%;
-    --muted-foreground: 120 10% 70%;
-    --accent: 142 71% 45%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 120 40% 12%;
-    --input: 120 40% 12%;
-    --ring: 142 71% 45%;
-    --radius: 0.75rem;
+    /* Afro Potente Brand Colors */
+    --color-cream: 30 27% 92%;       /* #F5EDE0 */
+    --color-espresso: 22 53% 14%;     /* #2B1A0E */
+    --color-terracotta: 12 64% 46%;   /* #B94A2F */
+    --color-terracotta-hover: 12 64% 38%; /* #9E3E27 */
+
+    /* Semantic mapping */
+    --background: var(--color-cream);
+    --foreground: var(--color-espresso);
+    --card: 32 33% 95%;               /* #FAF7F2 slightly lighter card */
+    --card-foreground: var(--color-espresso);
+    --popover: var(--color-cream);
+    --popover-foreground: var(--color-espresso);
+    --primary: var(--color-terracotta);
+    --primary-foreground: var(--color-cream);
+    --secondary: var(--color-espresso);
+    --secondary-foreground: var(--color-cream);
+    --muted: 30 15% 85%;
+    --muted-foreground: 22 20% 40%;
+    --accent: var(--color-terracotta);
+    --accent-foreground: var(--color-cream);
+    --destructive: 0 84% 60%;
+    --destructive-foreground: var(--color-cream);
+    --border: 22 53% 14% / 0.2;
+    --input: 22 53% 14% / 0.3;
+    --ring: var(--color-terracotta);
+    --radius: 0.5rem;
   }
 }
 
@@ -35,4 +42,73 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+
+  /* Typography - DM Serif Display for headlines */
+  h1, h2, h3 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-weight: 400;
+    color: hsl(22 53% 14%);
+  }
+
+  h1 {
+    font-size: 2rem;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: 1.625rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: 1.375rem;
+    line-height: 1.25;
+  }
+
+  @media (min-width: 768px) {
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2.25rem; }
+    h3 { font-size: 1.75rem; }
+  }
+
+  /* Body text */
+  p, li, span, label, input, select, textarea {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 680px;
+  }
+
+  @media (min-width: 768px) {
+    p { font-size: 1.125rem; }
+  }
+}
+
+/* Subtle fade-in animation for sections */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s ease-out forwards;
+}
+
+/* Skeleton loading pulse */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
 }
