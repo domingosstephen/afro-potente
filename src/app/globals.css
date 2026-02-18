@@ -112,3 +112,48 @@
 .skeleton-pulse {
   animation: skeleton-pulse 1.5s ease-in-out infinite;
 }
+
+/* === GRAIN TEXTURE OVERLAY === */
+.grain-overlay {
+  position: relative;
+}
+.grain-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+.grain-overlay > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Dark grain for light sections */
+.grain-dark::before {
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+}
+
+/* Light grain for dark sections */
+.grain-light::before {
+  opacity: 0.06;
+  mix-blend-mode: soft-light;
+  filter: invert(1);
+}
+
+/* === DECORATIVE DOT PATTERN === */
+.dot-pattern {
+  background-image: radial-gradient(circle, rgba(43, 26, 14, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* === SUBTLE SEPARATOR LINE === */
+.separator-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(43, 26, 14, 0.12), transparent);
+}
