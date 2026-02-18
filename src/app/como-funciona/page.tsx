@@ -63,45 +63,43 @@ export default function ComoFunciona() {
             </Reveal>
 
             <StaggerChildren
-              className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 max-w-5xl mx-auto"
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 max-w-5xl mx-auto"
               staggerDelay={0.15}
             >
               {[
                 {
                   step: "01",
                   title: "Escolha seu protocolo",
-                  icon: <BookOpen className="h-6 w-6 text-[#B94A2F]" />,
+                  icon: <BookOpen className="h-5 w-5 text-[#B94A2F]" />,
                   desc: "Energia, vitalidade ou saude. Cada guia tem foco em um resultado especifico para voce.",
                 },
                 {
                   step: "02",
                   title: "Prepare com ingredientes de feira",
-                  icon: <Leaf className="h-6 w-6 text-[#B94A2F]" />,
+                  icon: <Leaf className="h-5 w-5 text-[#B94A2F]" />,
                   desc: "Melancia, gengibre, cebola, cravo — tudo que voce encontra em qualquer feira. Preparo facil, na sua cozinha.",
                 },
                 {
                   step: "03",
                   title: "Sinta a diferenca no corpo",
-                  icon: <Sun className="h-6 w-6 text-[#B94A2F]" />,
+                  icon: <Sun className="h-5 w-5 text-[#B94A2F]" />,
                   desc: "Siga o protocolo diario com consistencia. Os resultados chegam no seu ritmo, de forma natural.",
                 },
               ].map((item, i) => (
                 <StaggerItem key={i}>
-                  <div className="relative text-center md:text-left">
-                    <span className="absolute -top-4 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 text-7xl font-serif text-[#B94A2F]/8 font-bold select-none pointer-events-none">
-                      {item.step}
-                    </span>
-                    <div className="relative">
-                      <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#B94A2F]/10 mb-5">
-                        {item.icon}
-                      </div>
-                      <h3 className="font-serif text-xl text-[#2B1A0E] mb-3">
-                        {item.title}
-                      </h3>
-                      <p className="text-[#2B1A0E]/55 text-base leading-relaxed max-w-none">
-                        {item.desc}
-                      </p>
+                  <div className="bg-white border border-[#2B1A0E]/6 rounded-xl p-6 md:p-8 text-center">
+                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#2B1A0E] mb-5">
+                      <span className="text-[#F5EDE0] text-sm font-bold font-sans">{item.step}</span>
                     </div>
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#B94A2F]/8 mb-5 ml-3">
+                      {item.icon}
+                    </div>
+                    <h3 className="font-serif text-lg text-[#2B1A0E] mb-3">
+                      {item.title}
+                    </h3>
+                    <p className="text-[#2B1A0E]/50 text-sm leading-relaxed max-w-none">
+                      {item.desc}
+                    </p>
                   </div>
                 </StaggerItem>
               ))}
