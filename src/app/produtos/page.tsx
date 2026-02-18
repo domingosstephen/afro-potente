@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, Star, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Star, ShieldCheck, Sparkles, Leaf, Zap, BookOpen, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 import { createServerSupabase } from "@/lib/supabase-server";
 import { PUBLIC_PDF_PRODUCTS } from "@/lib/products-from-public";
 import { AnimatedSection, StaggerChildren, StaggerItem } from "@/components/motion/AnimatedSection";
@@ -86,25 +87,62 @@ export default async function ProdutosPage() {
       <Navbar />
 
       <main className="flex-1 pt-20">
-        {/* Header */}
-        <section className="bg-[#2B1A0E] grain-overlay grain-light py-16 md:py-24">
-          <div className="container mx-auto px-4 md:px-6">
+        {/* Hero Header */}
+        <section className="bg-[#2B1A0E] grain-overlay grain-light py-20 md:py-28 lg:py-36 relative overflow-hidden">
+          {/* Decorative background elements */}
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B94A2F]/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#B94A2F]/4 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3" />
+
+          <div className="container mx-auto px-4 md:px-6 relative">
             <AnimatedSection className="text-center">
-              <p className="text-[#B94A2F] text-sm font-semibold tracking-wide uppercase mb-4">
-                Nossa loja
-              </p>
+              {/* Authority badge */}
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5EDE0]/8 border border-[#F5EDE0]/12 text-[#F5EDE0]/60 text-xs font-semibold tracking-wide uppercase mb-8">
+                <Leaf className="h-3.5 w-3.5 text-[#B94A2F]" />
+                Receitas ancestrais africanas
+              </span>
+
               <h1
-                className="font-serif mb-4 max-w-2xl mx-auto"
+                className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-6 max-w-3xl mx-auto leading-[1.1]"
                 style={{ color: "#F5EDE0" }}
               >
-                Protocolos Naturais
+                Escolha Seu Protocolo Natural
               </h1>
-              <p className="text-[#F5EDE0]/55 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-                Guias digitais com receitas ancestrais africanas — organizados por objetivo, com acesso imediato.
+              <p className="text-[#F5EDE0]/50 text-base md:text-lg max-w-xl mx-auto leading-relaxed mb-12">
+                Guias digitais com ingredientes de feira, instrucoes claras e foco em resultados. Acesso imediato apos a compra.
               </p>
+
+              {/* Trust strip */}
+              <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-[#F5EDE0]/35 text-xs">
+                <span className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-[#F5EDE0]/6 flex items-center justify-center">
+                    <Zap className="h-3.5 w-3.5 text-[#B94A2F]" />
+                  </div>
+                  Entrega imediata
+                </span>
+                <span className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-[#F5EDE0]/6 flex items-center justify-center">
+                    <BookOpen className="h-3.5 w-3.5 text-[#B94A2F]" />
+                  </div>
+                  Passo a passo completo
+                </span>
+                <span className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-[#F5EDE0]/6 flex items-center justify-center">
+                    <Lock className="h-3.5 w-3.5 text-[#B94A2F]" />
+                  </div>
+                  Pagamento seguro
+                </span>
+                <span className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-[#F5EDE0]/6 flex items-center justify-center">
+                    <Leaf className="h-3.5 w-3.5 text-[#B94A2F]" />
+                  </div>
+                  100% natural
+                </span>
+              </div>
             </AnimatedSection>
           </div>
         </section>
+
+        <SectionDivider variant="wave" color="#F5EDE0" bgColor="#2B1A0E" />
 
         <div className="container mx-auto px-4 md:px-6 py-12 md:py-20">
           {/* Bundle section */}
@@ -351,6 +389,28 @@ export default async function ProdutosPage() {
             </Button>
           </div>
         </div>
+
+        {/* Bottom CTA section */}
+        <section className="bg-[#FAF7F2] grain-overlay grain-dark py-16 md:py-20 border-t border-[#2B1A0E]/6">
+          <div className="container mx-auto px-4 md:px-6 text-center">
+            <AnimatedSection>
+              <h2 className="font-serif text-[#2B1A0E] text-xl md:text-3xl mb-4">
+                Duvidas Sobre Qual Protocolo Escolher?
+              </h2>
+              <p className="text-[#2B1A0E]/50 text-base max-w-lg mx-auto mb-8 leading-relaxed">
+                Veja como nossos protocolos funcionam e descubra qual e o ideal para o seu objetivo.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" className="text-base px-8">
+                  <Link href="/como-funciona">Como Funciona</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="text-base">
+                  <Link href="/contato">Fale Conosco</Link>
+                </Button>
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
       </main>
 
       <Footer />
