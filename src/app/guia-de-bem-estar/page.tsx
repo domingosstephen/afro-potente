@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, CheckCircle2, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/Navbar";
@@ -14,7 +15,8 @@ const freeGuides = [
     cta: "Domine as proporcoes exatas e o protocolo de 7 dias no nosso guia completo.",
     productLink: "/produtos",
     productName: "Ver Protocolo",
-    tag: "Energia"
+    tag: "Energia",
+    img: "/images/guides/watermelon-ginger.jpg"
   },
   {
     id: "quercetina",
@@ -25,7 +27,8 @@ const freeGuides = [
     cta: "Conheca o metodo de infusao de 72 horas no guia completo.",
     productLink: "/produtos",
     productName: "Ver Protocolo",
-    tag: "Saude"
+    tag: "Saude",
+    img: "/images/guides/onion-garlic.jpg"
   },
   {
     id: "sensorial",
@@ -36,7 +39,8 @@ const freeGuides = [
     cta: "Descubra as misturas ideais no guia completo.",
     productLink: "/produtos",
     productName: "Ver Protocolo",
-    tag: "Stamina"
+    tag: "Stamina",
+    img: "/images/guides/okra-clove-cinnamon.jpg"
   }
 ];
 
@@ -95,6 +99,23 @@ export default function GuiaPage() {
             <div className="space-y-8">
               {freeGuides.map((guide) => (
                 <div key={guide.id} id={guide.id} className="bg-[#FAF7F2] border border-[#2B1A0E]/10 rounded-xl overflow-hidden scroll-mt-24">
+                  {/* Guide hero image */}
+                  <div className="relative aspect-[21/9] overflow-hidden">
+                    <Image
+                      src={guide.img}
+                      alt={guide.theme}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 80vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#2B1A0E]/50 to-transparent" />
+                    <div className="absolute bottom-4 left-6 md:bottom-6 md:left-10">
+                      <span className="inline-block px-3 py-1 rounded-full bg-[#B94A2F] text-[#F5EDE0] text-xs font-semibold">
+                        {guide.tag}
+                      </span>
+                      <p className="text-[#F5EDE0] font-serif text-lg md:text-xl mt-2">{guide.theme}</p>
+                    </div>
+                  </div>
                   <div className="grid grid-cols-1 lg:grid-cols-3">
                     <div className="p-6 md:p-10 lg:col-span-2">
                       <div className="mb-4">

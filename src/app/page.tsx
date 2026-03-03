@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Leaf,
@@ -218,32 +219,34 @@ export default function Home() {
                   desc: "Melancia, gengibre e combinacoes que apoiam a circulacao e devolvem vigor ao dia a dia. Ingredientes simples, preparo rapido.",
                   tag: "Energia",
                   icon: <Zap className="h-5 w-5" />,
-                  img: "https://images.unsplash.com/photo-1610970881699-44a1fd18ca59?q=80&w=800&auto=format&fit=crop",
+                  img: "/images/protocols/watermelon-energy.jpg",
                 },
                 {
                   title: "Protocolo Circulacao & Saude",
                   desc: "Cebola, alho e temperos tradicionais africanos que cuidam da saude vascular. Tudo com base na sabedoria ancestral.",
                   tag: "Saude",
                   icon: <Heart className="h-5 w-5" />,
-                  img: "https://images.unsplash.com/photo-1556229162-5c63ed9c4ffb?q=80&w=800&auto=format&fit=crop",
+                  img: "/images/protocols/garlic-circulation.jpg",
                 },
                 {
                   title: "Protocolo Vitalidade & Confianca",
                   desc: "Cravo, canela e quiabo em receitas que aquecem o corpo e fortalecem a disposicao. Tradicao transformada em rotina.",
                   tag: "Vitalidade",
                   icon: <Flame className="h-5 w-5" />,
-                  img: "https://images.unsplash.com/photo-1544787210-2827448b320c?q=80&w=800&auto=format&fit=crop",
+                  img: "/images/protocols/cloves-vitality.jpg",
                 },
               ].map((protocol, i) => (
                 <StaggerItem key={i}>
                   <Link href="/produtos" className="group block">
                     <div className="rounded-xl overflow-hidden bg-white border border-[#2B1A0E]/8 shadow-[0_2px_12px_rgba(43,26,14,0.06)] hover:shadow-[0_8px_30px_rgba(43,26,14,0.12)] hover:-translate-y-1 transition-all duration-300">
-                      {/* Image placeholder */}
+                      {/* Protocol image */}
                       <div className="aspect-[16/10] overflow-hidden relative">
-                        <img
+                        <Image
                           src={protocol.img}
                           alt={protocol.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#2B1A0E]/30 to-transparent" />
                         <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#2B1A0E]/80 backdrop-blur-sm text-[#F5EDE0] text-xs font-semibold">
@@ -357,37 +360,50 @@ export default function Home() {
                   name: "Melancia",
                   benefit: "Circulacao e energia",
                   icon: <Droplets className="h-5 w-5" />,
+                  img: "/images/ingredients/watermelon.jpg",
                 },
                 {
                   name: "Gengibre",
                   benefit: "Disposicao e aquecimento",
                   icon: <Flame className="h-5 w-5" />,
+                  img: "/images/ingredients/ginger.jpg",
                 },
                 {
                   name: "Cravo & Canela",
                   benefit: "Vitalidade e calor corporal",
                   icon: <Sun className="h-5 w-5" />,
+                  img: "/images/ingredients/cloves.jpg",
                 },
                 {
                   name: "Cebola & Alho",
                   benefit: "Saude vascular natural",
                   icon: <Heart className="h-5 w-5" />,
+                  img: "/images/ingredients/red-onion.jpg",
                 },
               ].map((ingredient, i) => (
                 <StaggerItem key={i}>
-                  <div className="bg-[#F5EDE0]/6 border border-[#F5EDE0]/10 rounded-xl p-5 md:p-6 text-center hover:bg-[#F5EDE0]/10 transition-colors duration-300">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#B94A2F]/15 text-[#B94A2F] mb-4">
-                      {ingredient.icon}
+                  <div className="bg-[#F5EDE0]/6 border border-[#F5EDE0]/10 rounded-xl overflow-hidden hover:bg-[#F5EDE0]/10 transition-colors duration-300 group">
+                    <div className="aspect-square overflow-hidden relative">
+                      <Image
+                        src={ingredient.img}
+                        alt={ingredient.name}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#2B1A0E]/60 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
+                        <p
+                          className="font-serif text-base mb-1"
+                          style={{ color: "#F5EDE0" }}
+                        >
+                          {ingredient.name}
+                        </p>
+                        <p className="text-[#F5EDE0]/70 text-xs max-w-none">
+                          {ingredient.benefit}
+                        </p>
+                      </div>
                     </div>
-                    <p
-                      className="font-serif text-base mb-1"
-                      style={{ color: "#F5EDE0" }}
-                    >
-                      {ingredient.name}
-                    </p>
-                    <p className="text-[#F5EDE0]/45 text-xs max-w-none">
-                      {ingredient.benefit}
-                    </p>
                   </div>
                 </StaggerItem>
               ))}
