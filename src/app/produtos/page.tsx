@@ -88,7 +88,7 @@ export default async function ProdutosPage() {
 
       <main className="flex-1">
         {/* Hero Header */}
-        <section className="bg-[#2B1A0E] grain-overlay grain-light pt-20 pb-12 md:pb-16 relative overflow-hidden">
+        <section className="bg-[#2B1A0E] grain-overlay grain-light pt-20 pb-6 md:pb-8 relative overflow-hidden">
           {/* Decorative background elements */}
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B94A2F]/8 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#B94A2F]/6 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3" />
@@ -96,43 +96,43 @@ export default async function ProdutosPage() {
           <div className="container mx-auto px-4 md:px-6 relative">
             <AnimatedSection className="text-center">
               {/* Authority badge */}
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5EDE0]/10 border border-[#F5EDE0]/15 text-[#F5EDE0]/80 text-xs font-semibold tracking-wide uppercase mb-5">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5EDE0]/10 border border-[#F5EDE0]/15 text-[#F5EDE0]/80 text-xs font-semibold tracking-wide uppercase mb-3">
                 <Leaf className="h-3.5 w-3.5 text-[#B94A2F]" />
                 Receitas ancestrais africanas
               </span>
 
               <h1
-                className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-5 max-w-3xl mx-auto leading-[1.1]"
+                className="font-serif text-3xl sm:text-4xl md:text-5xl mb-3 max-w-3xl mx-auto leading-[1.1]"
                 style={{ color: "#F5EDE0" }}
               >
                 Escolha Seu Protocolo Natural
               </h1>
-              <p className="text-[#F5EDE0]/70 text-base md:text-lg max-w-xl mx-auto leading-relaxed mb-10">
+              <p className="text-[#F5EDE0]/70 text-base md:text-lg max-w-xl mx-auto leading-relaxed mb-6">
                 Guias digitais com ingredientes de feira, instrucoes claras e foco em resultados. Acesso imediato apos a compra.
               </p>
 
               {/* Trust strip */}
-              <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-[#F5EDE0]/60 text-xs font-medium">
+              <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-[#F5EDE0]/60 text-xs font-medium">
                 <span className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#F5EDE0]/8 flex items-center justify-center">
+                  <div className="w-7 h-7 rounded-lg bg-[#F5EDE0]/8 flex items-center justify-center">
                     <Zap className="h-3.5 w-3.5 text-[#B94A2F]" />
                   </div>
                   Entrega imediata
                 </span>
                 <span className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#F5EDE0]/8 flex items-center justify-center">
+                  <div className="w-7 h-7 rounded-lg bg-[#F5EDE0]/8 flex items-center justify-center">
                     <BookOpen className="h-3.5 w-3.5 text-[#B94A2F]" />
                   </div>
                   Passo a passo completo
                 </span>
                 <span className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#F5EDE0]/8 flex items-center justify-center">
+                  <div className="w-7 h-7 rounded-lg bg-[#F5EDE0]/8 flex items-center justify-center">
                     <Lock className="h-3.5 w-3.5 text-[#B94A2F]" />
                   </div>
                   Pagamento seguro
                 </span>
                 <span className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#F5EDE0]/8 flex items-center justify-center">
+                  <div className="w-7 h-7 rounded-lg bg-[#F5EDE0]/8 flex items-center justify-center">
                     <Leaf className="h-3.5 w-3.5 text-[#B94A2F]" />
                   </div>
                   100% natural
