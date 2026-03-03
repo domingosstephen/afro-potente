@@ -86,12 +86,9 @@ export default async function ProdutosPage() {
     <div className="flex min-h-screen flex-col bg-[#F5EDE0] font-sans">
       <Navbar />
 
-      <main className="flex-1 pt-16 md:pt-[72px]">
+      <main className="flex-1">
         {/* Hero Header */}
-        <section className="bg-[#2B1A0E] grain-overlay grain-light pt-6 md:pt-8 pb-6 md:pb-8 relative overflow-hidden">
-          {/* Decorative background elements */}
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B94A2F]/8 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#B94A2F]/6 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3" />
+        <section className="bg-[#2B1A0E] grain-overlay grain-light pt-[70px] pb-6 md:pb-8 relative overflow-hidden">
 
           <div className="container mx-auto px-4 md:px-6 relative">
             <div className="text-center">
