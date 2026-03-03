@@ -88,7 +88,7 @@ export default async function ProdutosPage() {
 
       <main className="flex-1">
         {/* Hero Header */}
-        <section className="bg-[#2B1A0E] grain-overlay grain-light pt-[70px] pb-6 md:pb-8 relative overflow-hidden">
+        <section className="bg-[#2B1A0E] grain-overlay grain-light pt-[90px] pb-8 md:pb-10 relative overflow-hidden">
 
           <div className="container mx-auto px-4 md:px-6 relative">
             <div className="text-center">
