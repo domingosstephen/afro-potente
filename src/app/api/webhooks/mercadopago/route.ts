@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createServerSupabase } from "@/lib/supabase-server";
 import { sendOrderConfirmation } from "@/lib/resend";
+import { getDeliveryPdfUrl } from "@/lib/pdf-delivery";
 
 /**
  * Mercado Pago webhook.
@@ -88,27 +89,49 @@ export async function POST(req: Request) {
     const productName = product?.name ?? "Guia";
     const pdfUrl = product?.pdf_url ?? null;
 
-    const { error: insertError } = await supabase.from("orders").insert({
-      email,
-      customer_name: payer && typeof payer.first_name === "string" ? String(payer.first_name) : null,
-      product_id: product?.id,
-      product_slug: product?.slug ?? productSlug,
-      amount_cents: amountCents,
-      payment_provider: "mercadopago",
-      external_id: externalId,
-      status: "paid",
-    });
+    const identification = payer?.identification as Record<string, unknown> | undefined;
+    const cpf =
+      identification && typeof identification.number === "string"
+        ? identification.number
+        : typeof (body as Record<string, unknown>).cpf === "string"
+          ? (body as Record<string, string>).cpf
+          : "";
+
+    const { data: insertedOrder, error: insertError } = await supabase
+      .from("orders")
+      .insert({
+        email,
+        customer_name: payer && typeof payer.first_name === "string" ? String(payer.first_name) : null,
+        product_id: product?.id,
+        product_slug: product?.slug ?? productSlug,
+        amount_cents: amountCents,
+        payment_provider: "mercadopago",
+        external_id: externalId,
+        status: "paid",
+      })
+      .select("id")
+      .single();
 
     if (insertError) {
       console.error("Mercado Pago webhook Supabase insert error:", insertError);
       return NextResponse.json({ error: "Failed to save order" }, { status: 500 });
     }
 
+    const orderId = insertedOrder?.id ?? externalId ?? "unknown";
+    const baseUrl = process.env.NEXT_PUBLIC_URL ?? "https://afropotente.com";
+    const deliveryPdfUrl = await getDeliveryPdfUrl(
+      pdfUrl,
+      email,
+      cpf,
+      String(orderId),
+      baseUrl
+    );
+
     const sendResult = await sendOrderConfirmation({
       to: email,
       customerName: payer && typeof payer.first_name === "string" ? String(payer.first_name) : null,
       productName,
-      pdfUrl,
+      pdfUrl: deliveryPdfUrl,
     });
 
     if (!sendResult.ok) {

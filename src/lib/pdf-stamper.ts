@@ -15,7 +15,8 @@ export async function stampPdf(
 
   // 2. Portuguese Stamp Text
   const today = new Date().toLocaleDateString('pt-BR');
-  const stampText = `Licenciado para ${userEmail} (CPF: ${cpf}) | Pedido: #${orderId} | Data: ${today}`;
+  const cpfDisplay = cpf && cpf !== "não informado" ? `CPF: ${cpf} | ` : "";
+  const stampText = `Licenciado para ${userEmail} | ${cpfDisplay}Pedido: #${orderId} | Data: ${today}`;
   
   pages.forEach((page) => {
     const { width } = page.getSize();

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createServerSupabase } from "@/lib/supabase-server";
 import { sendOrderConfirmation } from "@/lib/resend";
+import { getDeliveryPdfUrl } from "@/lib/pdf-delivery";
 
 /**
  * Kiwify webhook.
@@ -108,27 +109,50 @@ export async function POST(req: Request) {
           ? order.customer_name
           : null;
 
-    const { error: insertError } = await supabase.from("orders").insert({
-      email,
-      customer_name: customerName,
-      product_id: product?.id,
-      product_slug: product?.slug ?? productSlug,
-      amount_cents: amountCents,
-      payment_provider: "kiwify",
-      external_id: externalId,
-      status: "paid",
-    });
+    const cpf =
+      typeof customer.document === "string"
+        ? customer.document
+        : typeof (order as Record<string, unknown>).customer_document === "string"
+          ? (order as Record<string, string>).customer_document
+          : typeof (body as Record<string, unknown>).cpf === "string"
+            ? (body as Record<string, string>).cpf
+            : "";
+
+    const { data: insertedOrder, error: insertError } = await supabase
+      .from("orders")
+      .insert({
+        email,
+        customer_name: customerName,
+        product_id: product?.id,
+        product_slug: product?.slug ?? productSlug,
+        amount_cents: amountCents,
+        payment_provider: "kiwify",
+        external_id: externalId,
+        status: "paid",
+      })
+      .select("id")
+      .single();
 
     if (insertError) {
       console.error("Kiwify webhook Supabase insert error:", insertError);
       return NextResponse.json({ error: "Failed to save order" }, { status: 500 });
     }
 
+    const orderId = insertedOrder?.id ?? externalId ?? "unknown";
+    const baseUrl = process.env.NEXT_PUBLIC_URL ?? "https://afropotente.com";
+    const deliveryPdfUrl = await getDeliveryPdfUrl(
+      pdfUrl,
+      email,
+      cpf,
+      String(orderId),
+      baseUrl
+    );
+
     const sendResult = await sendOrderConfirmation({
       to: email,
       customerName: customerName,
       productName,
-      pdfUrl,
+      pdfUrl: deliveryPdfUrl,
     });
 
     if (!sendResult.ok) {
