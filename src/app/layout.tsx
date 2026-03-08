@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { FacebookPixel } from "@/components/FacebookPixel";
 
 export const metadata: Metadata = {
   title: "Afro Potente — Receitas Ancestrais Para Uma Vida Mais Potente",
@@ -27,7 +28,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <FacebookPixel />
+        {children}
+      </body>
     </html>
   );
 }

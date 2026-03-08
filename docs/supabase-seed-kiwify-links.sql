@@ -51,7 +51,7 @@ insert into public.products (
   6950,
   'Restauração',
   '["Foco em recuperação e renovação", "Infusões e misturas restauradoras", "Rotina de bem-estar completa"]'::jsonb,
-  '/Afro_Potente_Infusao_Restauracao.pdf',
+  '/Afro_Potente_Infusao_da_Restauracao.pdf',
   'https://pay.kiwify.com.br/dx1RLgy',
   false,
   12
