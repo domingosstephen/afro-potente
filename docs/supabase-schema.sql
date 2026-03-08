@@ -18,8 +18,14 @@ create table if not exists public.products (
   stripe_price_id text,
   is_bundle boolean default false,
   sort_order integer default 0,
+  kiwify_product_id text,
   created_at timestamptz default now()
 );
+
+-- Unique index on kiwify_product_id to prevent duplicate sync entries
+create unique index if not exists products_kiwify_product_id_idx
+  on public.products (kiwify_product_id)
+  where kiwify_product_id is not null;
 
 -- Orders: one row per successful payment
 create table if not exists public.orders (
