@@ -22,6 +22,7 @@ export function Navbar() {
     { name: "Como Funciona", href: "/como-funciona" },
     { name: "Comunidade", href: "/comunidade" },
     { name: "Loja", href: "/produtos" },
+    { name: "Oferta Ebooks", href: "/ebooks" },
     { name: "Contato", href: "/contato" },
   ];
 
