@@ -1,6 +1,7 @@
 import { createServerSupabase } from "@/lib/supabase-server";
 import { PUBLIC_PDF_PRODUCTS } from "@/lib/products-from-public";
 import { EbooksIndividuaisLanding } from "./EbooksIndividuaisLanding";
+import type { EbookOfferProduct } from "./EbooksIndividuaisLanding";
 
 export const dynamic = "force-dynamic";
 
