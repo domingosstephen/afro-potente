@@ -16,8 +16,6 @@ import {
   Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/motion/Reveal";
 import { StaggerChildren, StaggerItem } from "@/components/motion/StaggerChildren";
 import { SectionDivider } from "@/components/ui/SectionDivider";
@@ -28,9 +26,7 @@ const EBOOK_BUNDLE_OFFER_URL = process.env.NEXT_PUBLIC_EBOOK_OFFER_URL ?? "/prod
 export default function EbooksLandingPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[#F5EDE0] font-sans overflow-x-hidden">
-      <Navbar />
-
-      <main className="flex-1 pt-20">
+      <main className="flex-1 pt-8 md:pt-12">
         {/* ========== HERO — Hook + Promise ========== */}
         <section className="bg-[#2B1A0E] grain-overlay grain-light py-20 md:py-32 lg:py-40">
           <div className="container mx-auto px-4 md:px-6 text-center">
@@ -214,7 +210,7 @@ export default function EbooksLandingPage() {
         </section>
 
         {/* ========== PRICE CARD + CTA — Oferta limitada R$397 → R$147,17 ========== */}
-        <section id="oferta" className="bg-[#2B1A0E] grain-overlay grain-light py-20 md:py-28 scroll-mt-24">
+        <section id="oferta" className="bg-[#2B1A0E] grain-overlay grain-light py-20 md:py-28 scroll-mt-8">
           <div className="container mx-auto px-4 md:px-6">
             <Reveal direction="up" className="text-center mb-10">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B94A2F]/20 text-[#F5EDE0] text-sm font-semibold mb-6">
@@ -232,8 +228,8 @@ export default function EbooksLandingPage() {
               </p>
             </Reveal>
 
-            <Reveal direction="up" delay={0.15} className="flex justify-center">
-              <div className="w-full max-w-md bg-[#F5EDE0]/10 border-2 border-[#F5EDE0]/20 rounded-2xl p-8 md:p-10 text-center shadow-xl">
+            <Reveal direction="up" delay={0.15} className="flex justify-center overflow-visible">
+              <div className="w-full max-w-lg min-w-0 bg-[#F5EDE0]/10 border-2 border-[#F5EDE0]/20 rounded-2xl p-6 md:p-10 text-center shadow-xl overflow-visible">
                 {/* Price strikethrough + new price */}
                 <div className="flex flex-wrap items-baseline justify-center gap-3 mb-2">
                   <span className="text-[#F5EDE0]/50 text-xl md:text-2xl line-through font-sans">
@@ -264,20 +260,28 @@ export default function EbooksLandingPage() {
                   ))}
                 </ul>
 
-                <Button asChild size="lg" className="w-full text-lg py-7 rounded-xl">
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full min-w-0 text-base sm:text-lg py-7 rounded-xl px-4 sm:px-6 whitespace-normal text-center [&_svg]:shrink-0"
+                >
                   {EBOOK_BUNDLE_OFFER_URL.startsWith("http") ? (
                     <a
                       href={EBOOK_BUNDLE_OFFER_URL}
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 flex-wrap"
                     >
-                      <Sparkles className="mr-2 h-5 w-5" />
-                      Garantir oferta especial — R$ 147,17
+                      <Sparkles className="h-5 w-5" />
+                      <span>Garantir oferta especial — R$ 147,17</span>
                     </a>
                   ) : (
-                    <Link href={EBOOK_BUNDLE_OFFER_URL}>
-                      <Sparkles className="mr-2 h-5 w-5" />
-                      Garantir oferta especial — R$ 147,17
+                    <Link
+                      href={EBOOK_BUNDLE_OFFER_URL}
+                      className="inline-flex items-center justify-center gap-2 flex-wrap"
+                    >
+                      <Sparkles className="h-5 w-5" />
+                      <span>Garantir oferta especial — R$ 147,17</span>
                     </Link>
                   )}
                 </Button>
@@ -346,8 +350,6 @@ export default function EbooksLandingPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }
