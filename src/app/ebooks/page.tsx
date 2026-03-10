@@ -11,7 +11,6 @@ import {
   Utensils,
   AlertCircle,
   CheckCircle2,
-  Sparkles,
   ShoppingBag,
   Clock,
 } from "lucide-react";
@@ -263,25 +262,19 @@ export default function EbooksLandingPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="w-full min-w-0 text-base sm:text-lg py-7 rounded-xl px-4 sm:px-6 whitespace-normal text-center [&_svg]:shrink-0"
+                  className="w-full min-w-0 text-sm sm:text-base py-6 sm:py-7 rounded-xl px-5 sm:px-6"
                 >
                   {EBOOK_BUNDLE_OFFER_URL.startsWith("http") ? (
                     <a
                       href={EBOOK_BUNDLE_OFFER_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 flex-wrap"
                     >
-                      <Sparkles className="h-5 w-5" />
-                      <span>Garantir oferta especial — R$ 147,17</span>
+                      Garantir oferta especial — R$ 147,17
                     </a>
                   ) : (
-                    <Link
-                      href={EBOOK_BUNDLE_OFFER_URL}
-                      className="inline-flex items-center justify-center gap-2 flex-wrap"
-                    >
-                      <Sparkles className="h-5 w-5" />
-                      <span>Garantir oferta especial — R$ 147,17</span>
+                    <Link href={EBOOK_BUNDLE_OFFER_URL}>
+                      Garantir oferta especial — R$ 147,17
                     </Link>
                   )}
                 </Button>
