@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 
-// Env inlined at build time. Fallback so pixel fires even if Vercel env wasn't set when built.
-const PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID ?? "900144535989131";
+// Env inlined at build time. Fallback = Meta Pixel ID from Events Manager (909854345230663).
+const PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID ?? "909854345230663";
 
 declare global {
   interface Window {
@@ -15,16 +15,18 @@ declare global {
   }
 }
 
+let pixelInitialized = false;
+
 /**
  * Facebook (Meta) Pixel – injects the base code into the page so it fires reliably.
- * Set NEXT_PUBLIC_FB_PIXEL_ID in your env (e.g. 900144535989131).
+ * Set NEXT_PUBLIC_FB_PIXEL_ID in your env to override (e.g. 909854345230663).
  * Important: Redeploy after adding the env var so it’s inlined at build time.
  */
 export function FacebookPixel() {
   useEffect(() => {
     if (!PIXEL_ID || typeof document === "undefined") return;
-
-    // Avoid double injection (e.g. in React Strict Mode)
+    if (pixelInitialized) return;
+    pixelInitialized = true;
     if (document.getElementById("fb-pixel-script")) return;
 
     const script = document.createElement("script");
