@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Leaf,
@@ -18,6 +19,12 @@ import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/Reveal";
 import { StaggerChildren, StaggerItem } from "@/components/motion/StaggerChildren";
 import { SectionDivider } from "@/components/ui/SectionDivider";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // Replace with your actual payment/checkout URL (Kiwify, Mercado Pago, etc.)
 const EBOOK_BUNDLE_OFFER_URL = process.env.NEXT_PUBLIC_EBOOK_OFFER_URL ?? "/produtos";
@@ -52,10 +59,10 @@ export default function EbooksLandingPage() {
             </Reveal>
 
             <Reveal direction="up" delay={0.5} duration={0.5}>
-              <Button asChild size="lg" className="text-base px-8">
+              <Button asChild size="lg" className="text-base px-8 min-h-[48px]">
                 <Link href="#oferta">
                   Quero a oferta especial
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                 </Link>
               </Button>
             </Reveal>
@@ -231,6 +238,17 @@ export default function EbooksLandingPage() {
 
             <Reveal direction="up" delay={0.15} className="flex justify-center overflow-visible">
               <div className="w-full max-w-lg min-w-0 bg-[#F5EDE0]/10 border-2 border-[#F5EDE0]/20 rounded-2xl p-6 md:p-10 text-center shadow-xl overflow-visible">
+                {/* Product image */}
+                <div className="relative w-full max-w-[200px] mx-auto mb-6 aspect-[3/4] rounded-xl overflow-hidden bg-[#F5EDE0]/10">
+                  <Image
+                    src="/images/EBook.png"
+                    alt="Ebooks Afro Potente — Guias de vitalidade e bem-estar"
+                    fill
+                    sizes="200px"
+                    className="object-cover"
+                    priority
+                  />
+                </div>
                 {/* Price strikethrough + new price */}
                 <div className="flex flex-wrap items-baseline justify-center gap-3 mb-2">
                   <span className="text-[#F5EDE0]/50 text-xl md:text-2xl line-through font-sans">
@@ -264,25 +282,28 @@ export default function EbooksLandingPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="w-full min-w-0 text-sm sm:text-base py-6 sm:py-7 rounded-xl px-5 sm:px-6"
+                  className="w-full min-w-0 text-sm sm:text-base py-6 sm:py-7 rounded-xl px-5 sm:px-6 min-h-[48px]"
                 >
                   {EBOOK_BUNDLE_OFFER_URL.startsWith("http") ? (
                     <a
                       href={EBOOK_BUNDLE_OFFER_URL}
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2"
                     >
-                      Garantir oferta especial — R$ 147,17
+                      Quero garantir minha oferta — R$ 147,17
+                      <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
                     </a>
                   ) : (
-                    <Link href={EBOOK_BUNDLE_OFFER_URL}>
-                      Garantir oferta especial — R$ 147,17
+                    <Link href={EBOOK_BUNDLE_OFFER_URL} className="inline-flex items-center justify-center gap-2">
+                      Quero garantir minha oferta — R$ 147,17
+                      <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
                     </Link>
                   )}
                 </Button>
 
                 <p className="text-[#F5EDE0]/50 text-xs mt-4">
-                  Pagamento seguro · Entrega imediata · Acesso vitalício
+                  Pagamento 100% seguro · Entrega imediata por e-mail · Acesso vitalício
                 </p>
               </div>
             </Reveal>
@@ -328,22 +349,77 @@ export default function EbooksLandingPage() {
               <p className="text-[#F5EDE0]/55 text-base md:text-lg max-w-lg mx-auto mb-8">
                 Remédios caseiros, ingredientes do mercado, orientações claras. Tudo por R$ 147,17 por tempo limitado.
               </p>
-              <Button asChild size="lg" className="text-base px-8">
+              <Button asChild size="lg" className="text-base px-8 min-h-[48px]">
                 {EBOOK_BUNDLE_OFFER_URL.startsWith("http") ? (
                   <a href={EBOOK_BUNDLE_OFFER_URL} target="_blank" rel="noopener noreferrer">
                     Quero a oferta especial
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                   </a>
                 ) : (
                   <Link href={EBOOK_BUNDLE_OFFER_URL}>
                     Quero a oferta especial
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                   </Link>
                 )}
               </Button>
             </Reveal>
           </div>
         </section>
+
+        {/* FAQ — top objections (CRO: Trust Layer + Friction Audit) */}
+        <section className="py-16 md:py-20 bg-[#FAF7F2] border-t border-[#2B1A0E]/8">
+          <div className="container mx-auto px-4 md:px-6 max-w-2xl">
+            <Reveal direction="up" className="text-center mb-10">
+              <h2 className="font-serif text-[#2B1A0E] text-xl md:text-2xl">
+                Perguntas frequentes
+              </h2>
+            </Reveal>
+            <Accordion type="single" collapsible className="space-y-2">
+              <AccordionItem value="faq-1" className="bg-white border border-[#2B1A0E]/10 rounded-xl px-4">
+                <AccordionTrigger className="text-left font-sans font-semibold text-[#2B1A0E] py-4">
+                  Quando recebo os ebooks?
+                </AccordionTrigger>
+                <AccordionContent className="pb-4 text-[#2B1A0E]/70 text-sm">
+                  Imediatamente após a confirmação do pagamento você recebe o link por e-mail. Acesso vitalício, sem mensalidade.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="faq-2" className="bg-white border border-[#2B1A0E]/10 rounded-xl px-4">
+                <AccordionTrigger className="text-left font-sans font-semibold text-[#2B1A0E] py-4">
+                  O pagamento é seguro?
+                </AccordionTrigger>
+                <AccordionContent className="pb-4 text-[#2B1A0E]/70 text-sm">
+                  Sim. O pagamento é processado em ambiente seguro. Você pode usar cartão ou as opções disponíveis na página de checkout.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="faq-3" className="bg-white border border-[#2B1A0E]/10 rounded-xl px-4">
+                <AccordionTrigger className="text-left font-sans font-semibold text-[#2B1A0E] py-4">
+                  Para quem são os guias?
+                </AccordionTrigger>
+                <AccordionContent className="pb-4 text-[#2B1A0E]/70 text-sm">
+                  Para solteiros e casais que querem mais energia, vitalidade e bem-estar com remédios caseiros e naturais. Os ebooks trazem passo a passo para você aplicar em casa.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </section>
+
+        {/* Sticky mobile CTA — CRO: always visible on mobile, 48px+ touch target */}
+        <div className="fixed bottom-0 left-0 right-0 z-50 p-3 lg:hidden bg-[#2B1A0E]/95 backdrop-blur-sm border-t border-[#F5EDE0]/10 safe-area-pb">
+          <div className="container mx-auto px-4">
+            <Button asChild size="lg" className="w-full min-h-[48px] rounded-xl text-base font-semibold py-3">
+              {EBOOK_BUNDLE_OFFER_URL.startsWith("http") ? (
+                <a href={EBOOK_BUNDLE_OFFER_URL} target="_blank" rel="noopener noreferrer">
+                  Quero garantir minha oferta — R$ 147,17
+                </a>
+              ) : (
+                <Link href={EBOOK_BUNDLE_OFFER_URL}>
+                  Quero garantir minha oferta — R$ 147,17
+                </Link>
+              )}
+            </Button>
+          </div>
+        </div>
+        <div className="h-20 lg:h-0" aria-hidden />
       </main>
     </div>
   );
