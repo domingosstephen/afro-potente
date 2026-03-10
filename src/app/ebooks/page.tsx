@@ -32,7 +32,7 @@ export default function EbooksLandingPage() {
             <Reveal direction="none" delay={0} duration={0.5}>
               <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#F5EDE0]/8 border border-[#F5EDE0]/15 text-[#F5EDE0]/70 text-xs font-semibold tracking-wide uppercase mb-8">
                 <BookOpen className="h-3.5 w-3.5" />
-                Guias para singles e casais
+                Guias para solteiros e casais
               </span>
             </Reveal>
 
@@ -65,13 +65,15 @@ export default function EbooksLandingPage() {
         {/* ========== PROBLEM (P) — O que está drenando você ========== */}
         <section className="py-16 md:py-24 bg-[#FAF7F2] grain-overlay grain-dark">
           <div className="container mx-auto px-4 md:px-6">
-            <Reveal direction="up" className="text-center mb-12 md:mb-16">
-              <p className="text-[#B94A2F] text-sm font-semibold tracking-wide uppercase mb-4">
-                O custo invisível do dia a dia
-              </p>
-              <h2 className="font-serif text-[#2B1A0E] text-2xl md:text-4xl max-w-3xl mx-auto">
-                Estresse, Comida Cheia de Químicos, Noites Mal Dormidas — E a Vida Passando Sem Prazer
-              </h2>
+            <Reveal direction="up" className="mb-12 md:mb-16 w-full flex justify-center">
+              <div className="text-center max-w-3xl mx-auto w-full">
+                <p className="text-[#B94A2F] text-sm font-semibold tracking-wide uppercase mb-4">
+                  O custo invisível do dia a dia
+                </p>
+                <h2 className="font-serif text-[#2B1A0E] text-2xl md:text-4xl">
+                  Estresse, Comida Cheia de Químicos, Noites Mal Dormidas — E a Vida Passando Sem Prazer
+                </h2>
+              </div>
             </Reveal>
 
             <StaggerChildren
@@ -200,9 +202,9 @@ export default function EbooksLandingPage() {
               ))}
             </StaggerChildren>
 
-            <Reveal direction="up" delay={0.25} className="text-center mt-12">
-              <p className="text-[#2B1A0E]/70 font-semibold text-lg">
-                Para singles e casais — energia, vitalidade e relacionamentos mais felizes.
+            <Reveal direction="up" delay={0.25} className="mt-12 flex justify-center">
+              <p className="text-[#2B1A0E]/70 font-semibold text-lg text-center max-w-xl mx-auto">
+                Para solteiros e casais — energia, vitalidade e relacionamentos mais felizes.
               </p>
             </Reveal>
           </div>
@@ -220,7 +222,7 @@ export default function EbooksLandingPage() {
                 className="font-serif text-2xl md:text-4xl lg:text-5xl mb-4"
                 style={{ color: "#F5EDE0" }}
               >
-                Todos os Nossos Ebooks — Singles e Casais
+                Todos os Nossos Ebooks — Solteiros e Casais
               </h2>
               <p className="text-[#F5EDE0]/65 text-base md:text-lg max-w-xl mx-auto">
                 Acesso completo a todos os guias por um preço único. Recupere sua vitalidade e seus relacionamentos.
@@ -247,7 +249,7 @@ export default function EbooksLandingPage() {
 
                 <ul className="space-y-3 mb-8 text-left max-w-xs mx-auto">
                   {[
-                    "Ebooks para singles e casais",
+                    "Ebooks para solteiros e casais",
                     "Remédios caseiros e receitas naturais",
                     "Passo a passo para energia e vitalidade",
                     "Acesso imediato por e-mail",
@@ -296,7 +298,7 @@ export default function EbooksLandingPage() {
             >
               {[
                 { icon: <Leaf className="h-5 w-5 text-[#B94A2F]" />, label: "100% natural" },
-                { icon: <Heart className="h-5 w-5 text-[#B94A2F]" />, label: "Singles e casais" },
+                { icon: <Heart className="h-5 w-5 text-[#B94A2F]" />, label: "Solteiros e casais" },
                 { icon: <Zap className="h-5 w-5 text-[#B94A2F]" />, label: "Acesso imediato" },
                 { icon: <CheckCircle2 className="h-5 w-5 text-[#B94A2F]" />, label: "Pagamento seguro" },
               ].map((item, i) => (
