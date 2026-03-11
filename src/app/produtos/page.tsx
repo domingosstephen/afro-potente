@@ -191,12 +191,20 @@ export default async function ProdutosPage() {
                     </ul>
                   </div>
                   <div className="bg-[#F5EDE0]/10 border border-[#F5EDE0]/10 rounded-xl p-6 md:p-8 text-center">
-                    <div
-                      className="text-3xl md:text-4xl font-serif mb-4"
-                      style={{ color: "#F5EDE0" }}
-                    >
-                      {bundle.price_display ?? "—"}
+                    <div className="flex flex-wrap items-baseline justify-center gap-3 mb-2">
+                      <span className="text-[#F5EDE0]/50 text-xl md:text-2xl line-through font-sans">
+                        R$ 397,00
+                      </span>
+                      <span
+                        className="text-3xl md:text-4xl font-serif font-bold"
+                        style={{ color: "#F5EDE0" }}
+                      >
+                        {bundle.price_display ?? "—"}
+                      </span>
                     </div>
+                    <p className="text-[#F5EDE0]/60 text-sm mb-4">
+                      Preço promocional — por tempo limitado
+                    </p>
                     {hasAnyPaymentLink(bundle) ? (
                       <div className="w-full space-y-3">
                         {link(bundle, "payment_link_kiwify") && (
@@ -296,11 +304,27 @@ export default async function ProdutosPage() {
                       ))}
                     </ul>
                     <div className="flex flex-col gap-3 mt-auto pt-4 border-t border-[#2B1A0E]/10">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xl font-serif text-[#2B1A0E]">
-                          {product.price_display ?? "—"}
-                        </span>
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        {!product.slug?.toLowerCase().includes("comunidade") ? (
+                          <>
+                            <span className="text-[#2B1A0E]/50 text-sm line-through">
+                              R$ 69,50
+                            </span>
+                            <span className="text-xl font-serif font-semibold text-[#2B1A0E]">
+                              R$ 47,00
+                            </span>
+                          </>
+                        ) : (
+                          <span className="text-xl font-serif text-[#2B1A0E]">
+                            {product.price_display ?? "—"}
+                          </span>
+                        )}
                       </div>
+                      {!product.slug?.toLowerCase().includes("comunidade") && (
+                        <p className="text-xs text-[#2B1A0E]/50">
+                          Preço promocional
+                        </p>
+                      )}
                       {hasAnyPaymentLink(product) && (
                         <div className="flex flex-wrap gap-2">
                           {link(product, "payment_link_kiwify") && (

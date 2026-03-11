@@ -26,8 +26,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Replace with your actual payment/checkout URL (Kiwify, Mercado Pago, etc.)
-const EBOOK_BUNDLE_OFFER_URL = process.env.NEXT_PUBLIC_EBOOK_OFFER_URL ?? "/produtos";
+// Bundle checkout: pay.kiwify.com.br/59UKSBl (Guia Completo Afro Potente). Webhook delivers all ebooks on payment.
+const EBOOK_BUNDLE_OFFER_URL = process.env.NEXT_PUBLIC_EBOOK_OFFER_URL ?? "https://pay.kiwify.com.br/59UKSBl";
 
 export default function EbooksLandingPage() {
   return (

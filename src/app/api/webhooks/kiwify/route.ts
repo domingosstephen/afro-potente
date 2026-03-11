@@ -3,14 +3,16 @@ import { createServerSupabase } from "@/lib/supabase-server";
 import { sendOrderConfirmation } from "@/lib/resend";
 import { getDeliveryPdfUrl } from "@/lib/pdf-delivery";
 
+/** Slug or name hint that identifies the full-bundle product (Guia Completo / pay.kiwify.com.br/59UKSBl). */
+const BUNDLE_SLUG_HINT = "guia-completo-afro-potente";
+
 /**
  * Kiwify webhook.
  * Configure in Kiwify: Apps > Webhooks > URL = https://yourdomain.com/api/webhooks/kiwify
  * Subscribe to: order paid / order approved.
  *
- * We try to read email and product reference from common payload shapes:
- * - customer_email, order.customer_email, customer.email
- * - product_slug, product_id, product.slug, order.product_slug, external_reference
+ * When the order is for the bundle product (is_bundle=true or slug matches BUNDLE_SLUG_HINT),
+ * we send one email with links to ALL ebooks on the site. Otherwise we send the single product PDF.
  */
 export async function POST(req: Request) {
   if (!process.env.RESEND_API_KEY) {
@@ -76,22 +78,39 @@ export async function POST(req: Request) {
     if (!supabase) {
       return NextResponse.json({ error: "Supabase not configured." }, { status: 503 });
     }
-    type ProductRow = { id: string; name: string; pdf_url: string | null; slug: string };
+    type ProductRow = { id: string; name: string; pdf_url: string | null; slug: string; is_bundle: boolean };
     let product: ProductRow | null = null;
 
     if (productId) {
-      const { data } = await supabase
+      const { data: byOurId } = await supabase
         .from("products")
-        .select("id, name, pdf_url, slug")
+        .select("id, name, pdf_url, slug, is_bundle")
         .eq("id", productId)
         .single();
-      product = data as ProductRow | null;
+      product = byOurId as ProductRow | null;
+      if (!product) {
+        const { data: byKiwifyId } = await supabase
+          .from("products")
+          .select("id, name, pdf_url, slug, is_bundle")
+          .eq("kiwify_product_id", productId)
+          .single();
+        product = byKiwifyId as ProductRow | null;
+      }
     }
     if (!product && productSlug) {
       const { data } = await supabase
         .from("products")
-        .select("id, name, pdf_url, slug")
+        .select("id, name, pdf_url, slug, is_bundle")
         .eq("slug", productSlug)
+        .single();
+      product = data as ProductRow | null;
+    }
+    if (!product && productSlug && productSlug.toLowerCase().replace(/\s+/g, "-").includes("guia-completo")) {
+      const { data } = await supabase
+        .from("products")
+        .select("id, name, pdf_url, slug, is_bundle")
+        .eq("is_bundle", true)
+        .limit(1)
         .single();
       product = data as ProductRow | null;
     }
@@ -101,6 +120,9 @@ export async function POST(req: Request) {
       product?.name ??
       (typeof orderProduct?.name === "string" ? String(orderProduct.name) : "Guia");
     const pdfUrl = product?.pdf_url ?? null;
+    const isBundle =
+      product?.is_bundle === true ||
+      (productSlug && productSlug.toLowerCase().replace(/\s+/g, "-") === BUNDLE_SLUG_HINT);
 
     const customerName =
       typeof customer.name === "string"
@@ -140,19 +162,41 @@ export async function POST(req: Request) {
 
     const orderId = insertedOrder?.id ?? externalId ?? "unknown";
     const baseUrl = process.env.NEXT_PUBLIC_URL ?? "https://afropotente.com";
-    const deliveryPdfUrl = await getDeliveryPdfUrl(
-      pdfUrl,
-      email,
-      cpf,
-      String(orderId),
-      baseUrl
-    );
+
+    let pdfUrls: { name: string; url: string }[] | null = null;
+    if (isBundle) {
+      const { data: allProducts } = await supabase
+        .from("products")
+        .select("id, name, pdf_url")
+        .eq("is_bundle", false)
+        .not("pdf_url", "is", null)
+        .order("sort_order", { ascending: true });
+      const rows = (allProducts ?? []) as { id: string; name: string; pdf_url: string | null }[];
+      const links: { name: string; url: string }[] = [];
+      for (const row of rows) {
+        const url = await getDeliveryPdfUrl(
+          row.pdf_url,
+          email,
+          cpf,
+          `${orderId}-${row.id}`,
+          baseUrl
+        );
+        if (url) links.push({ name: row.name, url });
+      }
+      if (links.length > 0) pdfUrls = links;
+    }
+
+    const deliveryPdfUrl =
+      !pdfUrls && pdfUrl
+        ? await getDeliveryPdfUrl(pdfUrl, email, cpf, String(orderId), baseUrl)
+        : null;
 
     const sendResult = await sendOrderConfirmation({
       to: email,
       customerName: customerName,
       productName,
       pdfUrl: deliveryPdfUrl,
+      pdfUrls: pdfUrls ?? undefined,
     });
 
     if (!sendResult.ok) {
